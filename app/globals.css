@@ -13,11 +13,11 @@
   --text-primary: #f3f4f6;
   --text-secondary: #9ca3af;
   --background: #0f0f1a;
-  --surface: rgba(255, 255, 255, 0.05);
-  --surface-hover: rgba(255, 255, 255, 0.08);
-  --border: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-hover: rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
@@ -33,23 +33,8 @@ body {
 
 body {
   position: relative;
-  background-image: url('/bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-  z-index: -1;
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+  min-height: 100vh;
 }
 
 a {
