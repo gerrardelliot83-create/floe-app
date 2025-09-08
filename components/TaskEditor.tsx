@@ -1,14 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import EditorJS from '@editorjs/editorjs'
-import Header from '@editorjs/header'
-import Checklist from '@editorjs/checklist'
-import ImageTool from '@editorjs/image'
-import AttachesTool from '@editorjs/attaches'
 import { createClient } from '@/lib/supabase'
 import { Task } from '@/types/database'
 import styles from './TaskEditor.module.css'
+import type EditorJS from '@editorjs/editorjs'
 
 interface TaskEditorProps {
   task: Task
@@ -33,7 +29,13 @@ export default function TaskEditor({ task, onClose, onUpdate }: TaskEditorProps)
     }
   }, [task.id])
 
-  const initEditor = () => {
+  const initEditor = async () => {
+    const EditorJS = (await import('@editorjs/editorjs')).default
+    const Header = (await import('@editorjs/header')).default
+    const Checklist = (await import('@editorjs/checklist')).default
+    const ImageTool = (await import('@editorjs/image')).default
+    const AttachesTool = (await import('@editorjs/attaches')).default
+
     const editor = new EditorJS({
       holder: 'editorjs',
       data: task.content || { blocks: [] },
