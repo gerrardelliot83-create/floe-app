@@ -1,0 +1,261 @@
+.container {
+  display: flex;
+  gap: 40px;
+  padding: 40px;
+  height: calc(100vh - 80px);
+}
+
+.timerSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.timer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+  padding: 60px;
+  text-align: center;
+}
+
+.timerDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.timerText {
+  font-size: 72px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-variant-numeric: tabular-nums;
+}
+
+.sessionType {
+  font-size: 18px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.timerControls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.presets {
+  width: 100%;
+  max-width: 500px;
+}
+
+.presets h3 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+}
+
+.presetButtons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.preset {
+  flex: 1;
+  padding: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.preset:hover {
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+}
+
+.preset.active {
+  background: var(--surface);
+  border-color: var(--primary-color);
+}
+
+.presetTime {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.presetLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.customInputs {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: 12px;
+}
+
+.inputGroup {
+  flex: 1;
+}
+
+.inputGroup label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.taskSection {
+  width: 400px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.taskSection h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.taskItem {
+  padding: 16px;
+  background: var(--surface);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.taskItem:hover {
+  background: var(--surface-hover);
+  transform: translateX(4px);
+}
+
+.taskItem.selected {
+  border-color: var(--primary-color);
+  background: var(--surface-hover);
+}
+
+.taskInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.taskTitle {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.priority {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.priority.low {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--success-color);
+}
+
+.priority.medium {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--warning-color);
+}
+
+.priority.high {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--danger-color);
+}
+
+.dueDate {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.selectedTask {
+  margin-top: 30px;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.selectedTask h4 {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.selectedTask p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .taskSection {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .timer {
+    padding: 40px 20px;
+  }
+
+  .timerText {
+    font-size: 48px;
+  }
+
+  .presetButtons {
+    flex-direction: column;
+  }
+
+  .customInputs {
+    flex-direction: column;
+  }
+}
