@@ -1,11 +1,18 @@
 .container {
   width: 400px;
-  background: var(--main-bg);
-  border-left: 1px solid var(--border-light);
+  background: transparent;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 104px);
   overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+[data-theme="picture"] .container {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .header {
@@ -14,6 +21,11 @@
   justify-content: space-between;
   padding: 16px 20px;
   border-bottom: 1px solid var(--border-light);
+  background: var(--main-bg);
+}
+
+[data-theme="picture"] .header {
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .closeBtn {

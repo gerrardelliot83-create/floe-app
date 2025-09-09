@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Task } from '@/types/database'
+import Icon from './Icon'
 import styles from './TaskList.module.css'
 
 interface TaskListProps {
@@ -70,7 +71,9 @@ export default function TaskList({
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.headerActions}>
           <button className={styles.shareBtn}>Share</button>
-          <button className={styles.moreBtn}>⋯</button>
+          <button className={styles.moreBtn}>
+            <Icon name="moreHorizontal" size={18} />
+          </button>
         </div>
       </header>
 
@@ -100,7 +103,9 @@ export default function TaskList({
             className={styles.addTaskBtn}
             onClick={() => setShowNewTask(true)}
           >
-            <span className={styles.plusIcon}>+</span>
+            <span className={styles.plusIcon}>
+              <Icon name="plus" size={14} />
+            </span>
             Add task
           </button>
         )}
@@ -129,7 +134,8 @@ export default function TaskList({
                     <span className={`${styles.dueDate} ${
                       new Date(task.due_date) < new Date() && !task.completed ? styles.overdue : ''
                     }`}>
-                      📅 {formatDueDate(task.due_date)}
+                      <Icon name="calendar" size={12} />
+                      {formatDueDate(task.due_date)}
                     </span>
                   )}
                   
@@ -150,7 +156,7 @@ export default function TaskList({
                   onDeleteTask(task.id)
                 }}
               >
-                ×
+                <Icon name="x" size={16} />
               </button>
             </div>
           ))}

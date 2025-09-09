@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Task } from '@/types/database'
+import Icon from './Icon'
 import styles from './TaskDetails.module.css'
 import type EditorJS from '@editorjs/editorjs'
 
@@ -83,10 +84,16 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <button className={styles.closeBtn} onClick={onClose}>×</button>
+        <button className={styles.closeBtn} onClick={onClose}>
+          <Icon name="x" size={20} />
+        </button>
         <div className={styles.headerActions}>
-          <button className={styles.actionBtn}>📌</button>
-          <button className={styles.actionBtn}>⋯</button>
+          <button className={styles.actionBtn}>
+            <Icon name="pin" size={16} />
+          </button>
+          <button className={styles.actionBtn}>
+            <Icon name="moreVertical" size={16} />
+          </button>
         </div>
       </header>
 
@@ -156,7 +163,9 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
         <div className={styles.activity}>
           <h3 className={styles.sectionTitle}>Activity</h3>
           <div className={styles.activityItem}>
-            <span className={styles.activityIcon}>✓</span>
+            <span className={styles.activityIcon}>
+              <Icon name="check" size={12} />
+            </span>
             <div>
               <p className={styles.activityText}>Task created</p>
               <span className="timestamp">{formatDate(task.created_at)}</span>
@@ -164,7 +173,9 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
           </div>
           {task.updated_at && task.updated_at !== task.created_at && (
             <div className={styles.activityItem}>
-              <span className={styles.activityIcon}>✏️</span>
+              <span className={styles.activityIcon}>
+                <Icon name="edit" size={12} />
+              </span>
               <div>
                 <p className={styles.activityText}>Task updated</p>
                 <span className="timestamp">{formatDate(task.updated_at)}</span>

@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase'
 import { Project, Task } from '@/types/database'
 import { useAuth } from './AuthProvider'
-import Sidebar from './Sidebar'
+import TopNavigation from './TopNavigation'
+import ProjectSidebar from './ProjectSidebar'
 import TaskList from './TaskList'
 import TaskDetails from './TaskDetails'
+import BackgroundImage from './BackgroundImage'
 import styles from './TaskManager.module.css'
 
 interface TaskManagerProps {
@@ -17,8 +19,10 @@ interface TaskManagerProps {
 export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps) {
   const [projects, setProjects] = useState<Project[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
-  const [selectedProject, setSelectedProject] = useState<string | null>('inbox')
+  const [selectedView, setSelectedView] = useState<string | null>('inbox')
+  const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [selectedTask, setSelectedTask] = useState<Task | null>(null)
+  const [showProjects, setShowProjects] = useState(false)
   const { user } = useAuth()
   const supabase = createClient()
 
@@ -153,7 +157,12 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     
-    switch(selectedProject) {
+    // If projects view is selected, show project tasks
+    if (selectedView === 'projects' && selectedProject) {
+      return tasks.filter(t => t.project_id === selectedProject)
+    }
+    
+    switch(selectedView) {
       case 'inbox':
         return tasks.filter(t => !t.project_id && !t.completed)
       case 'today':
@@ -173,7 +182,7 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
           new Date(a.due_date!).getTime() - new Date(b.due_date!).getTime()
         )
       default:
-        return tasks.filter(t => t.project_id === selectedProject)
+        return tasks.filter(t => !t.project_id && !t.completed)
     }
   }
 
@@ -196,43 +205,87 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
 
   // Get view title
   const getViewTitle = () => {
-    switch(selectedProject) {
+    if (selectedView === 'projects' && selectedProject) {
+      return projects.find(p => p.id === selectedProject)?.name || 'Project'
+    }
+    
+    switch(selectedView) {
       case 'inbox': return 'Inbox'
       case 'today': return 'Today'
       case 'upcoming': return 'Upcoming'
-      default: return projects.find(p => p.id === selectedProject)?.name || 'Tasks'
+      case 'projects': return 'Projects'
+      default: return 'Tasks'
+    }
+  }
+  
+  const handleViewSelect = (view: string | null) => {
+    setSelectedView(view)
+    if (view === 'projects') {
+      setShowProjects(true)
+      if (projects.length > 0 && !selectedProject) {
+        setSelectedProject(projects[0].id)
+      }
+    } else {
+      setShowProjects(false)
+      setSelectedProject(null)
     }
   }
 
   return (
-    <div className={styles.container}>
-      <Sidebar
-        projects={projects}
-        selectedProject={selectedProject}
-        onSelectProject={setSelectedProject}
-        onCreateProject={createProject}
-        taskCounts={taskCounts}
-        onNavigate={onNavigate}
-        onSignOut={onSignOut}
-      />
-      
-      <TaskList
-        title={getViewTitle()}
-        tasks={filteredTasks}
-        onToggleTask={toggleTask}
-        onSelectTask={setSelectedTask}
-        onCreateTask={createTask}
-        onDeleteTask={deleteTask}
-        selectedTask={selectedTask}
-      />
-      
-      {selectedTask && (
-        <TaskDetails
-          task={selectedTask}
-          onClose={() => setSelectedTask(null)}
-          onUpdate={updateTask}
+    <>
+      <BackgroundImage />
+      <div className={styles.container}>
+        <TopNavigation
+          selectedView={selectedView}
+          onSelectView={handleViewSelect}
+          onNavigateToDeepWork={() => onNavigate('deepwork')}
+          onSignOut={onSignOut}
+          taskCounts={{
+            inbox: taskCounts.inbox,
+            today: taskCounts.today,
+            upcoming: tasks.filter(t => {
+              if (t.completed || !t.due_date) return false
+              const dueDate = new Date(t.due_date)
+              const today = new Date()
+              return dueDate > today
+            }).length
+          }}
         />
-      )}
-    </div>
+        
+        <div className={styles.mainContent}>
+          {showProjects && (
+            <ProjectSidebar
+              projects={projects}
+              selectedProject={selectedProject}
+              onSelectProject={setSelectedProject}
+              onCreateProject={createProject}
+              taskCounts={taskCounts}
+            />
+          )}
+          
+          <div className={`${styles.taskContainer} glass-panel`}>
+            <TaskList
+              title={getViewTitle()}
+              tasks={filteredTasks}
+              onToggleTask={toggleTask}
+              onSelectTask={setSelectedTask}
+              onCreateTask={createTask}
+              onDeleteTask={deleteTask}
+              selectedTask={selectedTask}
+            />
+          </div>
+          
+          {selectedTask && (
+            <div className="glass-panel">
+              <TaskDetails
+                task={selectedTask}
+                onClose={() => setSelectedTask(null)}
+                onUpdate={updateTask}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   )
 }

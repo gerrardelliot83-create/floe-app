@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useAuth } from './AuthProvider'
+import Icon from './Icon'
 import styles from './AuthScreen.module.css'
 
 export default function AuthScreen() {
@@ -67,15 +68,21 @@ export default function AuthScreen() {
 
         <div className={styles.features}>
           <div className={styles.feature}>
-            <span className={styles.featureIcon}>✓</span>
+            <span className={styles.featureIcon}>
+              <Icon name="check" size={14} color="var(--primary-red)" />
+            </span>
             <span>Minimalist task management</span>
           </div>
           <div className={styles.feature}>
-            <span className={styles.featureIcon}>✓</span>
+            <span className={styles.featureIcon}>
+              <Icon name="check" size={14} color="var(--primary-red)" />
+            </span>
             <span>Deep work with Pomodoro timer</span>
           </div>
           <div className={styles.feature}>
-            <span className={styles.featureIcon}>✓</span>
+            <span className={styles.featureIcon}>
+              <Icon name="check" size={14} color="var(--primary-red)" />
+            </span>
             <span>Distraction-free interface</span>
           </div>
         </div>

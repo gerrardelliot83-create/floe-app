@@ -11,10 +11,15 @@
   gap: 20px;
   padding: 20px 24px;
   border-bottom: 1px solid var(--border-light);
-  background: white;
+  background: var(--nav-bg);
+  backdrop-filter: var(--nav-backdrop);
+  -webkit-backdrop-filter: var(--nav-backdrop);
 }
 
 .backBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 8px 16px;
   background: transparent;
   border: 1px solid var(--border-light);
@@ -54,12 +59,19 @@
 }
 
 .timer {
-  background: white;
+  background: var(--main-bg);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   padding: 60px;
   text-align: center;
   border: 1px solid var(--border-light);
+}
+
+[data-theme="picture"] .timer {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .timerDisplay {
@@ -163,12 +175,19 @@
 
 .taskSection {
   width: 400px;
-  background: white;
+  background: var(--main-bg);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-md);
   padding: 30px;
   overflow-y: auto;
+}
+
+[data-theme="picture"] .taskSection {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .taskSection h3 {

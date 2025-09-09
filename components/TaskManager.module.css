@@ -1,11 +1,36 @@
 .container {
   display: flex;
+  flex-direction: column;
   height: 100vh;
-  background: var(--main-bg);
+  background: transparent;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.taskContainer {
+  flex: 1;
+  display: flex;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+[data-theme="picture"] .taskContainer {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
-  .container {
+  .mainContent {
     flex-direction: column;
+    padding: 10px;
   }
 }

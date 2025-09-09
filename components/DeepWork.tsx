@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase'
 import { Task, DeepWorkSession } from '@/types/database'
 import { useAuth } from './AuthProvider'
+import BackgroundImage from './BackgroundImage'
+import Icon from './Icon'
 import styles from './DeepWork.module.css'
 
 interface DeepWorkProps {
@@ -171,15 +173,18 @@ export default function DeepWork({ onBack }: DeepWorkProps) {
   }
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <button className={styles.backBtn} onClick={onBack}>
-          ← Back to Tasks
-        </button>
-        <h1 className={styles.title}>Deep Work Mode</h1>
-      </header>
-      
-      <div className={styles.content}>
+    <>
+      <BackgroundImage />
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <button className={styles.backBtn} onClick={onBack}>
+            <Icon name="arrowLeft" size={18} />
+            <span>Back to Tasks</span>
+          </button>
+          <h1 className={styles.title}>Deep Work Mode</h1>
+        </header>
+        
+        <div className={styles.content}>
         <div className={styles.timerSection}>
         <div className={styles.timer}>
           <div className={styles.timerDisplay}>
@@ -310,6 +315,7 @@ export default function DeepWork({ onBack }: DeepWorkProps) {
         )}
       </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }

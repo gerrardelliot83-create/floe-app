@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Project } from '@/types/database'
+import Icon from './Icon'
 import styles from './Sidebar.module.css'
 
 interface SidebarProps {
@@ -48,7 +49,9 @@ export default function Sidebar({
       <div className={styles.sidebarContent}>
         <nav className={styles.navigation}>
           <div className={styles.navItem} onClick={() => onSelectProject('inbox')}>
-            <span className={styles.navIcon}>📥</span>
+            <span className={styles.navIcon}>
+              <Icon name="inbox" size={18} />
+            </span>
             <span className={styles.navLabel}>Inbox</span>
             {taskCounts['inbox'] > 0 && (
               <span className={styles.count}>{taskCounts['inbox']}</span>
@@ -56,7 +59,9 @@ export default function Sidebar({
           </div>
           
           <div className={`${styles.navItem} ${styles.today}`} onClick={() => onSelectProject('today')}>
-            <span className={styles.navIcon}>📅</span>
+            <span className={styles.navIcon}>
+              <Icon name="calendar" size={18} />
+            </span>
             <span className={styles.navLabel}>Today</span>
             {taskCounts['today'] > 0 && (
               <span className={styles.count}>{taskCounts['today']}</span>
@@ -64,14 +69,18 @@ export default function Sidebar({
           </div>
 
           <div className={styles.navItem} onClick={() => onSelectProject('upcoming')}>
-            <span className={styles.navIcon}>📆</span>
+            <span className={styles.navIcon}>
+              <Icon name="calendarDays" size={18} />
+            </span>
             <span className={styles.navLabel}>Upcoming</span>
           </div>
 
           <div className={styles.divider} />
           
           <div className={styles.navItem} onClick={() => onNavigate('deepwork')}>
-            <span className={styles.navIcon}>🎯</span>
+            <span className={styles.navIcon}>
+              <Icon name="target" size={18} />
+            </span>
             <span className={styles.navLabel}>Deep Work</span>
           </div>
 
@@ -81,7 +90,10 @@ export default function Sidebar({
             <div className={styles.sectionHeader} onClick={() => toggleSection('favorites')}>
               <span className={styles.sectionTitle}>Favorites</span>
               <span className={styles.chevron}>
-                {expandedSections.includes('favorites') ? '▼' : '▶'}
+                <Icon 
+                  name={expandedSections.includes('favorites') ? 'chevronDown' : 'chevronRight'} 
+                  size={12} 
+                />
               </span>
             </div>
             
@@ -93,7 +105,9 @@ export default function Sidebar({
                     className={`${styles.projectItem} ${selectedProject === project.id ? styles.active : ''}`}
                     onClick={() => onSelectProject(project.id)}
                   >
-                    <span className={styles.projectIcon}>●</span>
+                    <span className={styles.projectIcon}>
+                      <Icon name="circleFilled" size={8} color={project.color || '#666666'} />
+                    </span>
                     <span className={styles.projectName}>{project.name}</span>
                     {taskCounts[project.id] > 0 && (
                       <span className={styles.count}>{taskCounts[project.id]}</span>
@@ -108,7 +122,10 @@ export default function Sidebar({
             <div className={styles.sectionHeader} onClick={() => toggleSection('projects')}>
               <span className={styles.sectionTitle}>Projects</span>
               <span className={styles.chevron}>
-                {expandedSections.includes('projects') ? '▼' : '▶'}
+                <Icon 
+                  name={expandedSections.includes('projects') ? 'chevronDown' : 'chevronRight'} 
+                  size={12} 
+                />
               </span>
             </div>
             
@@ -120,7 +137,9 @@ export default function Sidebar({
                     className={`${styles.projectItem} ${selectedProject === project.id ? styles.active : ''}`}
                     onClick={() => onSelectProject(project.id)}
                   >
-                    <span className={styles.projectIcon}>●</span>
+                    <span className={styles.projectIcon}>
+                      <Icon name="circleFilled" size={8} color={project.color || '#666666'} />
+                    </span>
                     <span className={styles.projectName}>{project.name}</span>
                     {taskCounts[project.id] > 0 && (
                       <span className={styles.count}>{taskCounts[project.id]}</span>
