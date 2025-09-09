@@ -16,9 +16,10 @@
 }
 
 [data-theme="picture"] .header {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(40px);
+  -webkit-backdrop-filter: saturate(180%) blur(40px);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.65);
 }
 
 .title {

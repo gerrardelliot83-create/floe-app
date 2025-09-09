@@ -96,40 +96,46 @@
   --primary-red: #FF4444;
   --primary-red-hover: #FF3333;
   --primary-blue: #0066FF;
-  --sidebar-bg: rgba(248, 248, 248, 0.75);
-  --main-bg: rgba(255, 255, 255, 0.65);
-  --text-primary: #1A1A1A;
-  --text-secondary: #4A4A4A;
-  --text-tertiary: #6A6A6A;
-  --border-light: rgba(255, 255, 255, 0.3);
-  --border-medium: rgba(255, 255, 255, 0.5);
-  --hover-bg: rgba(255, 255, 255, 0.3);
-  --selected-bg: rgba(255, 255, 255, 0.4);
-  --checkbox-border: rgba(0, 0, 0, 0.2);
-  --success-green: #00C851;
-  --warning-orange: #FF8800;
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+  --sidebar-bg: rgba(255, 255, 255, 0.72);
+  --main-bg: rgba(255, 255, 255, 0.72);
+  --text-primary: #000000;
+  --text-secondary: #3C3C43;
+  --text-tertiary: #8E8E93;
+  --border-light: rgba(255, 255, 255, 0.65);
+  --border-medium: rgba(255, 255, 255, 0.8);
+  --hover-bg: rgba(255, 255, 255, 0.5);
+  --selected-bg: rgba(255, 255, 255, 0.6);
+  --checkbox-border: rgba(60, 60, 67, 0.29);
+  --success-green: #34C759;
+  --warning-orange: #FF9500;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
   
   /* Navigation specific */
-  --nav-bg: rgba(248, 248, 248, 0.8);
-  --nav-backdrop: saturate(180%) blur(20px);
-  --nav-border: rgba(255, 255, 255, 0.3);
-  --nav-text: var(--text-primary);
-  --nav-hover-bg: rgba(255, 255, 255, 0.5);
-  --nav-active-bg: rgba(255, 255, 255, 0.7);
+  --nav-bg: rgba(255, 255, 255, 0.72);
+  --nav-backdrop: saturate(180%) blur(40px);
+  --nav-border: rgba(255, 255, 255, 0.65);
+  --nav-text: #000000;
+  --nav-hover-bg: rgba(255, 255, 255, 0.6);
+  --nav-active-bg: rgba(255, 255, 255, 0.8);
   --nav-active-text: var(--primary-red);
-  --nav-glass-bg: rgba(255, 255, 255, 0.3);
-  --nav-glass-border: rgba(255, 255, 255, 0.5);
+  --nav-glass-bg: rgba(255, 255, 255, 0.4);
+  --nav-glass-border: rgba(255, 255, 255, 0.65);
   
   /* Dropdown */
-  --dropdown-bg: rgba(248, 248, 248, 0.95);
-  --dropdown-border: rgba(255, 255, 255, 0.5);
-  --dropdown-text: var(--text-primary);
-  --dropdown-hover-bg: rgba(255, 255, 255, 0.5);
-  --dropdown-active-bg: rgba(255, 255, 255, 0.7);
+  --dropdown-bg: rgba(255, 255, 255, 0.9);
+  --dropdown-border: rgba(255, 255, 255, 0.65);
+  --dropdown-text: #000000;
+  --dropdown-hover-bg: rgba(255, 255, 255, 0.6);
+  --dropdown-active-bg: rgba(255, 255, 255, 0.8);
   --dropdown-active-text: var(--primary-red);
+  
+  /* iOS Specific Glass Effect */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-backdrop: saturate(180%) blur(40px);
+  --glass-border: 0.5px solid rgba(255, 255, 255, 0.65);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 html,
@@ -288,12 +294,37 @@ a {
   z-index: 1;
 }
 
-[data-theme="picture"] .glass-panel {
-  background: var(--main-bg);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-lg);
+/* iOS Style Glassmorphism for Picture Mode */
+[data-theme="picture"] .glass-panel,
+[data-theme="picture"] .sidebar,
+[data-theme="picture"] .task-list,
+[data-theme="picture"] .task-details,
+[data-theme="picture"] .top-navigation,
+[data-theme="picture"] .dropdown-content {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-backdrop) !important;
+  -webkit-backdrop-filter: var(--glass-backdrop) !important;
+  border: var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+}
+
+[data-theme="picture"] .task-item,
+[data-theme="picture"] .btn,
+[data-theme="picture"] .input,
+[data-theme="picture"] .checkbox {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+[data-theme="picture"] .task-item:hover,
+[data-theme="picture"] .btn:hover {
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+[data-theme="picture"] .task-item.selected {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-left-color: var(--primary-red) !important;
 }
 
 .main-content {
