@@ -29,7 +29,7 @@ export default function AuthScreen() {
 
   return (
     <div className={styles.container}>
-      <div className={`glass-container ${styles.authBox}`}>
+      <div className={styles.authBox}>
         <div className={styles.header}>
           <h1 className={styles.logo}>Floe</h1>
           <p className={styles.tagline}>Deep Work & Productivity</p>
@@ -41,7 +41,7 @@ export default function AuthScreen() {
             <input
               id="email"
               type="email"
-              className="glass-input"
+              className="input"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -51,8 +51,9 @@ export default function AuthScreen() {
 
           <button 
             type="submit" 
-            className="glass-button primary"
+            className="btn btn-primary"
             disabled={loading}
+            style={{ width: '100%' }}
           >
             {loading ? 'Sending...' : 'Send Magic Link'}
           </button>

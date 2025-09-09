@@ -1,8 +1,47 @@
 .container {
   display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--main-bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-light);
+  background: white;
+}
+
+.backBtn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backBtn:hover {
+  background: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.content {
+  flex: 1;
+  display: flex;
   gap: 40px;
   padding: 40px;
-  height: calc(100vh - 80px);
+  overflow: auto;
 }
 
 .timerSection {
@@ -15,12 +54,12 @@
 }
 
 .timer {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  border: 1px solid var(--glass-border);
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   padding: 60px;
   text-align: center;
+  border: 1px solid var(--border-light);
 }
 
 .timerDisplay {
@@ -33,10 +72,7 @@
 .timerText {
   font-size: 72px;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
   font-variant-numeric: tabular-nums;
 }
 
@@ -73,12 +109,11 @@
 .preset {
   flex: 1;
   padding: 20px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  background: white;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,13 +121,13 @@
 }
 
 .preset:hover {
-  background: var(--surface-hover);
-  transform: translateY(-2px);
+  background: var(--hover-bg);
+  border-color: var(--border-medium);
 }
 
 .preset.active {
-  background: var(--surface);
-  border-color: var(--primary-color);
+  background: var(--selected-bg);
+  border-color: var(--primary-red);
 }
 
 .presetTime {
@@ -110,8 +145,9 @@
   display: flex;
   gap: 16px;
   padding: 20px;
-  background: var(--surface);
-  border-radius: 12px;
+  background: var(--hover-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
 }
 
 .inputGroup {
@@ -127,10 +163,10 @@
 
 .taskSection {
   width: 400px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
   padding: 30px;
   overflow-y: auto;
 }
@@ -148,21 +184,21 @@
 
 .taskItem {
   padding: 16px;
-  background: var(--surface);
-  border-radius: 8px;
+  background: var(--hover-bg);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border: 2px solid transparent;
 }
 
 .taskItem:hover {
-  background: var(--surface-hover);
+  background: var(--selected-bg);
   transform: translateX(4px);
 }
 
 .taskItem.selected {
-  border-color: var(--primary-color);
-  background: var(--surface-hover);
+  border-color: var(--primary-red);
+  background: var(--selected-bg);
 }
 
 .taskInfo {
@@ -186,18 +222,18 @@
 }
 
 .priority.low {
-  background: rgba(16, 185, 129, 0.2);
-  color: var(--success-color);
+  background: rgba(0, 200, 81, 0.1);
+  color: var(--success-green);
 }
 
 .priority.medium {
-  background: rgba(245, 158, 11, 0.2);
-  color: var(--warning-color);
+  background: rgba(255, 136, 0, 0.1);
+  color: var(--warning-orange);
 }
 
 .priority.high {
-  background: rgba(239, 68, 68, 0.2);
-  color: var(--danger-color);
+  background: rgba(255, 68, 68, 0.1);
+  color: var(--primary-red);
 }
 
 .dueDate {
@@ -208,9 +244,9 @@
 .selectedTask {
   margin-top: 30px;
   padding: 20px;
-  background: var(--surface);
-  border-radius: 8px;
-  border-left: 4px solid var(--primary-color);
+  background: var(--hover-bg);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary-red);
 }
 
 .selectedTask h4 {
@@ -227,7 +263,7 @@
 }
 
 @media (max-width: 1200px) {
-  .container {
+  .content {
     flex-direction: column;
   }
 
@@ -239,7 +275,11 @@
 }
 
 @media (max-width: 768px) {
-  .container {
+  .header {
+    padding: 16px;
+  }
+  
+  .content {
     padding: 20px;
   }
 

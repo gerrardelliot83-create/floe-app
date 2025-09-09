@@ -6,7 +6,11 @@ import { Task, DeepWorkSession } from '@/types/database'
 import { useAuth } from './AuthProvider'
 import styles from './DeepWork.module.css'
 
-export default function DeepWork() {
+interface DeepWorkProps {
+  onBack: () => void
+}
+
+export default function DeepWork({ onBack }: DeepWorkProps) {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null)
   const [tasks, setTasks] = useState<Task[]>([])
   const [sessionActive, setSessionActive] = useState(false)
@@ -168,7 +172,15 @@ export default function DeepWork() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.timerSection}>
+      <header className={styles.header}>
+        <button className={styles.backBtn} onClick={onBack}>
+          ← Back to Tasks
+        </button>
+        <h1 className={styles.title}>Deep Work Mode</h1>
+      </header>
+      
+      <div className={styles.content}>
+        <div className={styles.timerSection}>
         <div className={styles.timer}>
           <div className={styles.timerDisplay}>
             <span className={styles.timerText}>{formatTime(timeLeft)}</span>
@@ -296,6 +308,7 @@ export default function DeepWork() {
             <p>{selectedTask.title}</p>
           </div>
         )}
+      </div>
       </div>
     </div>
   )

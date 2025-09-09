@@ -1,20 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useAuth } from '@/components/AuthProvider'
-import Navigation from '@/components/Navigation'
 import TaskManager from '@/components/TaskManager'
 import DeepWork from '@/components/DeepWork'
 import AuthScreen from '@/components/AuthScreen'
 
 export default function Home() {
   const [activeView, setActiveView] = useState<'tasks' | 'deepwork'>('tasks')
-  const { user, loading } = useAuth()
+  const { user, loading, signOut } = useAuth()
 
   if (loading) {
     return (
       <div className="loading-screen">
-        <div className="glass-container" style={{ padding: '40px', textAlign: 'center' }}>
+        <div className="loading-box">
           <h2>Loading Floe...</h2>
         </div>
       </div>
@@ -25,12 +24,9 @@ export default function Home() {
     return <AuthScreen />
   }
 
-  return (
-    <div className="app">
-      <Navigation activeView={activeView} setActiveView={setActiveView} />
-      <main className="main-content">
-        {activeView === 'tasks' ? <TaskManager /> : <DeepWork />}
-      </main>
-    </div>
-  )
+  if (activeView === 'deepwork') {
+    return <DeepWork onBack={() => setActiveView('tasks')} />
+  }
+
+  return <TaskManager onNavigate={setActiveView} onSignOut={signOut} />
 }

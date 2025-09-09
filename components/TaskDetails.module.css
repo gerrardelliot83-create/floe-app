@@ -1,0 +1,223 @@
+.container {
+  width: 400px;
+  background: var(--main-bg);
+  border-left: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  background: var(--hover-bg);
+}
+
+.headerActions {
+  display: flex;
+  gap: 4px;
+}
+
+.actionBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.actionBtn:hover {
+  background: var(--hover-bg);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.taskHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.titleInput {
+  flex: 1;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.metaLabel {
+  width: 80px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.metaValue {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.metaValue:hover {
+  background: var(--hover-bg);
+}
+
+.avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--primary-red);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.dateInput,
+.prioritySelect {
+  flex: 1;
+  padding: 6px 10px;
+  background: var(--main-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dateInput:hover,
+.prioritySelect:hover {
+  background: var(--hover-bg);
+}
+
+.dateInput:focus,
+.prioritySelect:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+.editorSection {
+  margin: 24px 0;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.editor {
+  min-height: 200px;
+  padding: 12px;
+  background: var(--hover-bg);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.activity {
+  margin-top: 24px;
+}
+
+.activityItem {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.activityIcon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hover-bg);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+}
+
+.activityText {
+  font-size: 13px;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}

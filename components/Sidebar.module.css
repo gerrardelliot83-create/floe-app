@@ -1,0 +1,212 @@
+.sidebar {
+  width: 240px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidebarContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.navItem:hover {
+  background: var(--hover-bg);
+}
+
+.navItem.today {
+  color: var(--primary-red);
+}
+
+.navIcon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.navLabel {
+  flex: 1;
+}
+
+.count {
+  font-size: 12px;
+  padding: 2px 6px;
+  background: var(--hover-bg);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 8px 0;
+}
+
+.section {
+  margin-top: 8px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sectionHeader:hover {
+  background: var(--hover-bg);
+  border-radius: var(--radius-md);
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chevron {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.sectionContent {
+  margin-left: 8px;
+}
+
+.projectItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.projectItem:hover {
+  background: var(--hover-bg);
+}
+
+.projectItem.active {
+  background: var(--selected-bg);
+  font-weight: 500;
+}
+
+.projectIcon {
+  font-size: 8px;
+  color: var(--text-tertiary);
+}
+
+.projectName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.newProjectForm {
+  padding: 6px 12px;
+}
+
+.newProjectInput {
+  width: 100%;
+  padding: 4px 8px;
+  font-size: 14px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  background: white;
+}
+
+.newProjectInput:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+.addProject {
+  width: 100%;
+  padding: 6px 12px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.addProject:hover {
+  background: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.sidebarFooter {
+  padding: 12px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.upgradeBtn {
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--primary-blue);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upgradeBtn:hover {
+  background: var(--hover-bg);
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--primary-red);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+}
