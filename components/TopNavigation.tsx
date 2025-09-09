@@ -29,10 +29,10 @@ export default function TopNavigation({
   const [showThemeMenu, setShowThemeMenu] = useState(false)
 
   const navItems = [
-    { id: 'inbox', label: 'Inbox', icon: 'inbox', count: taskCounts.inbox },
-    { id: 'today', label: 'Today', icon: 'calendar', count: taskCounts.today },
-    { id: 'upcoming', label: 'Upcoming', icon: 'calendarDays', count: taskCounts.upcoming },
-    { id: 'projects', label: 'Projects', icon: 'folder', count: 0 }
+    { id: 'home', label: 'Home', count: 0 },
+    { id: 'today', label: 'Today', count: taskCounts.today },
+    { id: 'upcoming', label: 'Upcoming', count: taskCounts.upcoming },
+    { id: 'projects', label: 'Projects', count: 0 }
   ]
 
   return (
@@ -49,9 +49,6 @@ export default function TopNavigation({
               className={`${styles.navItem} ${selectedView === item.id ? styles.active : ''}`}
               onClick={() => onSelectView(item.id)}
             >
-              <span className={styles.navIcon}>
-                <Icon name={item.icon} size={18} />
-              </span>
               <span className={styles.navLabel}>{item.label}</span>
               {item.count > 0 && (
                 <span className={styles.navCount}>{item.count}</span>

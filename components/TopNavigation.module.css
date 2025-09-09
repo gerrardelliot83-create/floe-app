@@ -5,20 +5,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
-  background: var(--nav-bg);
-  backdrop-filter: var(--nav-backdrop);
-  -webkit-backdrop-filter: var(--nav-backdrop);
-  border-bottom: 1px solid var(--nav-border);
+  padding: 16px 24px;
+  background: transparent;
   transition: all 0.3s ease;
-}
-
-[data-theme="picture"] .nav {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(180%) blur(40px);
-  -webkit-backdrop-filter: saturate(180%) blur(40px);
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05);
 }
 
 .navLeft {
@@ -51,28 +40,56 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   padding: 8px 16px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: none;
   border-radius: var(--radius-md);
-  color: var(--nav-text);
+  color: #000;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  opacity: 0.7;
+}
+
+[data-theme="dark"] .navItem {
+  background: rgba(30, 30, 30, 0.8);
+  color: #fff;
+}
+
+[data-theme="light"] .navItem {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
 }
 
 .navItem:hover {
-  background: var(--nav-hover-bg);
-  opacity: 1;
+  background: rgba(255, 255, 255, 0.85);
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .navItem:hover {
+  background: rgba(40, 40, 40, 0.9);
+}
+
+[data-theme="light"] .navItem:hover {
+  background: var(--hover-bg);
 }
 
 .navItem.active {
-  background: var(--nav-active-bg);
-  color: var(--nav-active-text);
-  opacity: 1;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .navItem.active {
+  background: rgba(50, 50, 50, 0.9);
+}
+
+[data-theme="light"] .navItem.active {
+  background: var(--selected-bg);
 }
 
 .navIcon {
@@ -85,13 +102,14 @@
 
 .navCount {
   padding: 2px 6px;
-  background: var(--primary-red);
-  color: white;
+  background: transparent;
+  color: inherit;
   border-radius: var(--radius-full);
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   min-width: 18px;
   text-align: center;
+  opacity: 0.6;
 }
 
 .navRight {

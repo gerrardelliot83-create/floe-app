@@ -9,6 +9,7 @@ import ProjectSidebar from './ProjectSidebar'
 import TaskList from './TaskList'
 import TaskDetails from './TaskDetails'
 import BackgroundImage from './BackgroundImage'
+import HomeScreen from './HomeScreen'
 import styles from './TaskManager.module.css'
 
 interface TaskManagerProps {
@@ -19,7 +20,7 @@ interface TaskManagerProps {
 export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps) {
   const [projects, setProjects] = useState<Project[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
-  const [selectedView, setSelectedView] = useState<string | null>('inbox')
+  const [selectedView, setSelectedView] = useState<string | null>('home')
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [selectedTask, setSelectedTask] = useState<Task | null>(null)
   const [showProjects, setShowProjects] = useState(false)
@@ -163,8 +164,8 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
     }
     
     switch(selectedView) {
-      case 'inbox':
-        return tasks.filter(t => !t.project_id && !t.completed)
+      case 'home':
+        return [] // Home view doesn't show tasks
       case 'today':
         return tasks.filter(t => {
           if (t.completed) return false
@@ -210,7 +211,7 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
     }
     
     switch(selectedView) {
-      case 'inbox': return 'Inbox'
+      case 'home': return 'Home'
       case 'today': return 'Today'
       case 'upcoming': return 'Upcoming'
       case 'projects': return 'Projects'
@@ -253,36 +254,42 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
         />
         
         <div className={styles.mainContent}>
-          {showProjects && (
-            <ProjectSidebar
-              projects={projects}
-              selectedProject={selectedProject}
-              onSelectProject={setSelectedProject}
-              onCreateProject={createProject}
-              taskCounts={taskCounts}
-            />
-          )}
-          
-          <div className={`${styles.taskContainer} glass-panel`}>
-            <TaskList
-              title={getViewTitle()}
-              tasks={filteredTasks}
-              onToggleTask={toggleTask}
-              onSelectTask={setSelectedTask}
-              onCreateTask={createTask}
-              onDeleteTask={deleteTask}
-              selectedTask={selectedTask}
-            />
-          </div>
-          
-          {selectedTask && (
-            <div className="glass-panel">
-              <TaskDetails
-                task={selectedTask}
-                onClose={() => setSelectedTask(null)}
-                onUpdate={updateTask}
-              />
-            </div>
+          {selectedView === 'home' ? (
+            <HomeScreen />
+          ) : (
+            <>
+              {showProjects && (
+                <ProjectSidebar
+                  projects={projects}
+                  selectedProject={selectedProject}
+                  onSelectProject={setSelectedProject}
+                  onCreateProject={createProject}
+                  taskCounts={taskCounts}
+                />
+              )}
+              
+              <div className={`${styles.taskContainer} glass-panel`}>
+                <TaskList
+                  title={getViewTitle()}
+                  tasks={filteredTasks}
+                  onToggleTask={toggleTask}
+                  onSelectTask={setSelectedTask}
+                  onCreateTask={createTask}
+                  onDeleteTask={deleteTask}
+                  selectedTask={selectedTask}
+                />
+              </div>
+              
+              {selectedTask && (
+                <div className="glass-panel">
+                  <TaskDetails
+                    task={selectedTask}
+                    onClose={() => setSelectedTask(null)}
+                    onUpdate={updateTask}
+                  />
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
