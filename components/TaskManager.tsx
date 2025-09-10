@@ -257,37 +257,39 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
           {selectedView === 'home' ? (
             <HomeScreen />
           ) : (
-            <>
-              {showProjects && (
-                <ProjectSidebar
-                  projects={projects}
-                  selectedProject={selectedProject}
-                  onSelectProject={setSelectedProject}
-                  onCreateProject={createProject}
-                  taskCounts={taskCounts}
-                />
-              )}
-              
-              <div className={styles.taskContainer}>
-                <TaskList
-                  title={getViewTitle()}
-                  tasks={filteredTasks}
-                  onToggleTask={toggleTask}
-                  onSelectTask={setSelectedTask}
-                  onCreateTask={createTask}
-                  onDeleteTask={deleteTask}
-                  selectedTask={selectedTask}
-                />
+            <div className={styles.contentWrapper}>
+              <div className={styles.glassmorphicPanel}>
+                {showProjects && (
+                  <ProjectSidebar
+                    projects={projects}
+                    selectedProject={selectedProject}
+                    onSelectProject={setSelectedProject}
+                    onCreateProject={createProject}
+                    taskCounts={taskCounts}
+                  />
+                )}
+                
+                <div className={styles.taskContainer}>
+                  <TaskList
+                    title={getViewTitle()}
+                    tasks={filteredTasks}
+                    onToggleTask={toggleTask}
+                    onSelectTask={setSelectedTask}
+                    onCreateTask={createTask}
+                    onDeleteTask={deleteTask}
+                    selectedTask={selectedTask}
+                  />
+                </div>
+                
+                {selectedTask && (
+                  <TaskDetails
+                    task={selectedTask}
+                    onClose={() => setSelectedTask(null)}
+                    onUpdate={updateTask}
+                  />
+                )}
               </div>
-              
-              {selectedTask && (
-                <TaskDetails
-                  task={selectedTask}
-                  onClose={() => setSelectedTask(null)}
-                  onUpdate={updateTask}
-                />
-              )}
-            </>
+            </div>
           )}
         </div>
       </div>

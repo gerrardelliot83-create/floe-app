@@ -1,75 +1,147 @@
-.sidebar {
+.container {
   width: 240px;
-  height: calc(100vh - 64px);
-  overflow-y: auto;
-  padding: 20px;
-  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border-right: 0.5px solid rgba(255, 255, 255, 0.2);
+  height: 100%;
+  position: relative;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  padding: 20px 20px 16px;
 }
 
 .header h3 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: rgba(0, 0, 0, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .addBtn {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  font-size: 18px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .addBtn:hover {
-  background: var(--hover-bg);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.05);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 12px 20px;
+}
+
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 3px;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .newProject {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  padding: 0 8px;
+}
+
+.newProjectInput {
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.8);
+  transition: all 0.2s ease;
+}
+
+.newProjectInput:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.newProjectInput::placeholder {
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .projectList {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .projectItem {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   padding: 10px 12px;
-  border-radius: var(--radius-md);
+  margin: 0 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .projectItem:hover {
-  background: var(--hover-bg);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .projectItem.active {
-  background: var(--selected-bg);
+  background: rgba(255, 255, 255, 0.35);
   font-weight: 500;
 }
 
+.projectItem.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0 2px 2px 0;
+}
+
 .projectIcon {
-  font-size: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .projectName {
@@ -77,20 +149,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 14px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.projectItem:hover .projectName,
+.projectItem.active .projectName {
+  color: rgba(0, 0, 0, 0.85);
 }
 
 .count {
-  font-size: 12px;
+  font-size: 11px;
   padding: 2px 6px;
-  background: var(--hover-bg);
-  border-radius: var(--radius-sm);
-  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.5);
   font-weight: 500;
+  min-width: 20px;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
-  .sidebar {
+  .container {
     display: none;
   }
 }

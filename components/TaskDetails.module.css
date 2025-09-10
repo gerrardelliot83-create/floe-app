@@ -2,15 +2,11 @@
   width: 400px;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 104px);
+  height: 100%;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  background: transparent;
+  border-left: 0.5px solid rgba(255, 255, 255, 0.2);
   position: relative;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur-heavy) saturate(180%);
-  -webkit-backdrop-filter: var(--glass-blur-heavy) saturate(180%);
-  border: 0.5px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
 }
 
 .header {
@@ -18,7 +14,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  border-bottom: 0.5px solid var(--glass-border);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .closeBtn {
@@ -29,15 +26,15 @@
   justify-content: center;
   background: transparent;
   border: none;
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
 .closeBtn:hover {
-  background: var(--glass-bg-hover);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .headerActions {
@@ -53,15 +50,15 @@
   justify-content: center;
   background: transparent;
   border: none;
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
 .actionBtn:hover {
-  background: var(--glass-bg-hover);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .content {
@@ -70,12 +67,32 @@
   padding: 24px;
 }
 
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 4px;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
 .titleInput {
   width: 100%;
   padding: 0;
   font-size: 20px;
   font-weight: 400;
-  color: var(--text-primary);
+  color: rgba(0, 0, 0, 0.85);
   background: transparent;
   border: none;
   margin-bottom: 24px;
@@ -87,7 +104,7 @@
 }
 
 .titleInput::placeholder {
-  color: var(--text-tertiary);
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .metadata {
@@ -95,7 +112,7 @@
   flex-direction: column;
   gap: 16px;
   padding-bottom: 24px;
-  border-bottom: 0.5px solid var(--glass-border);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
   margin-bottom: 24px;
 }
 
@@ -108,7 +125,7 @@
 .metaLabel {
   width: 100px;
   font-size: 13px;
-  color: var(--text-tertiary);
+  color: rgba(0, 0, 0, 0.5);
   font-weight: 500;
 }
 
@@ -118,44 +135,46 @@
 
 .prioritySelect {
   padding: 6px 12px;
-  background: transparent;
-  border: 0.5px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.7);
   font-size: 13px;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
 .prioritySelect:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  background: var(--glass-bg-hover);
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .prioritySelect option {
-  background: #1A1A1A;
-  color: white;
+  background: white;
+  color: black;
 }
 
 .dueDateInput {
   padding: 6px 12px;
-  background: transparent;
-  border: 0.5px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.7);
   font-size: 13px;
-  transition: var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
 .dueDateInput:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  background: var(--glass-bg-hover);
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .dueDateInput::-webkit-calendar-picker-indicator {
-  filter: invert(0.8);
+  filter: invert(0.2);
 }
 
 .descriptionSection {
@@ -167,7 +186,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--text-tertiary);
+  color: rgba(0, 0, 0, 0.5);
   margin-bottom: 12px;
 }
 
@@ -175,36 +194,34 @@
   width: 100%;
   min-height: 100px;
   padding: 12px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 0.5px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.8);
   font-size: 14px;
   font-family: inherit;
   resize: vertical;
-  transition: var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
 .descriptionTextarea:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  background: var(--glass-bg-hover);
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .descriptionTextarea::placeholder {
-  color: var(--text-tertiary);
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .editorContainer {
   min-height: 200px;
   padding: 12px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 0.5px solid var(--glass-border);
-  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
 }
 
 .attachmentSection {
@@ -222,16 +239,15 @@
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 0.5px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  transition: var(--transition-smooth);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .attachmentItem:hover {
-  background: var(--glass-bg-hover);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .attachmentIcon {
@@ -240,19 +256,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--glass-bg);
-  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
 }
 
 .attachmentName {
   flex: 1;
   font-size: 13px;
-  color: var(--text-primary);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .attachmentSize {
   font-size: 12px;
-  color: var(--text-tertiary);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .uploadBtn {
@@ -261,55 +277,57 @@
   gap: 8px;
   padding: 8px 16px;
   background: transparent;
-  border: 1px dashed var(--glass-border);
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.5);
   font-size: 13px;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: all 0.2s ease;
   margin-top: 12px;
 }
 
 .uploadBtn:hover {
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.3);
   border-style: solid;
-  color: var(--text-primary);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .footer {
   padding: 16px 24px;
-  border-top: 0.5px solid var(--glass-border);
+  border-top: 0.5px solid rgba(255, 255, 255, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .footerMeta {
   font-size: 12px;
-  color: var(--text-tertiary);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .deleteBtn {
   padding: 8px 16px;
   background: transparent;
   border: 0.5px solid rgba(255, 68, 68, 0.3);
-  border-radius: var(--radius-md);
-  color: var(--primary-red);
+  border-radius: 8px;
+  color: #FF4444;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
 .deleteBtn:hover {
   background: rgba(255, 68, 68, 0.1);
-  border-color: var(--primary-red);
+  border-color: #FF4444;
 }
 
 @media (max-width: 768px) {
   .container {
     width: 100%;
     height: 100vh;
-    border-radius: 0;
+    border-left: none;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.2);
   }
 }
