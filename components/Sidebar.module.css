@@ -1,17 +1,13 @@
 .sidebar {
   width: 240px;
-  background: var(--sidebar-bg);
-  border-right: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-
-[data-theme="picture"] .sidebar {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(180%) blur(40px);
-  -webkit-backdrop-filter: saturate(180%) blur(40px);
-  border-right: 0.5px solid rgba(255, 255, 255, 0.65);
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur-heavy) saturate(180%);
+  -webkit-backdrop-filter: var(--glass-blur-heavy) saturate(180%);
+  border-right: 0.5px solid var(--glass-border);
 }
 
 .sidebarContent {
@@ -29,50 +25,67 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 14px;
-  color: var(--text-primary);
-  transition: all 0.2s ease;
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: var(--transition-smooth);
   position: relative;
+  margin-bottom: 2px;
 }
 
 .navItem:hover {
-  background: var(--hover-bg);
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
 }
 
-.navItem.today {
-  color: var(--primary-red);
+.navItem.active {
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
+}
+
+.navItem.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: var(--primary-red);
+  border-radius: 0 2px 2px 0;
 }
 
 .navIcon {
-  font-size: 16px;
-  width: 20px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.navItem:hover .navIcon,
+.navItem.active .navIcon {
+  opacity: 1;
 }
 
 .navLabel {
   flex: 1;
+  font-weight: 400;
 }
 
-.count {
-  font-size: 12px;
+.navCount {
   padding: 2px 6px;
-  background: var(--hover-bg);
-  border-radius: var(--radius-sm);
-  color: var(--text-secondary);
+  background: var(--glass-bg);
+  border-radius: var(--radius-full);
+  font-size: 11px;
   font-weight: 500;
+  opacity: 0.6;
 }
 
-.divider {
-  height: 1px;
-  background: var(--border-light);
-  margin: 8px 0;
-}
-
-.section {
-  margin-top: 8px;
+.projectsSection {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 0.5px solid var(--glass-border);
 }
 
 .sectionHeader {
@@ -80,76 +93,100 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.sectionHeader:hover {
-  background: var(--hover-bg);
-  border-radius: var(--radius-md);
+  margin-bottom: 8px;
 }
 
 .sectionTitle {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: var(--text-tertiary);
 }
 
-.chevron {
-  font-size: 10px;
-  color: var(--text-secondary);
+.addProjectBtn {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: var(--transition-smooth);
 }
 
-.sectionContent {
-  margin-left: 8px;
+.addProjectBtn:hover {
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
+}
+
+.projectList {
+  display: flex;
+  flex-direction: column;
 }
 
 .projectItem {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
+  gap: 12px;
+  padding: 10px 12px;
   border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 14px;
-  color: var(--text-primary);
-  transition: all 0.2s ease;
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: var(--transition-smooth);
+  margin-bottom: 2px;
 }
 
 .projectItem:hover {
-  background: var(--hover-bg);
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
 }
 
 .projectItem.active {
-  background: var(--selected-bg);
-  font-weight: 500;
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
 }
 
-.projectIcon {
-  font-size: 8px;
-  color: var(--text-tertiary);
+.projectColor {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
 }
 
 .projectName {
   flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-weight: 400;
+}
+
+.projectCount {
+  padding: 2px 6px;
+  background: var(--glass-bg);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.6;
 }
 
 .newProjectForm {
-  padding: 6px 12px;
+  padding: 8px 12px;
+  background: var(--glass-bg-hover);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
 }
 
 .newProjectInput {
   width: 100%;
-  padding: 4px 8px;
-  font-size: 14px;
-  border: 1px solid var(--border-medium);
+  padding: 6px 8px;
+  background: transparent;
+  border: 0.5px solid var(--glass-border);
   border-radius: var(--radius-sm);
-  background: white;
+  font-size: 13px;
+  color: var(--text-primary);
 }
 
 .newProjectInput:focus {
@@ -157,63 +194,15 @@
   border-color: var(--primary-blue);
 }
 
-.addProject {
-  width: 100%;
-  padding: 6px 12px;
-  text-align: left;
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 14px;
-  cursor: pointer;
-  border-radius: var(--radius-md);
-  transition: all 0.2s ease;
-}
-
-.addProject:hover {
-  background: var(--hover-bg);
-  color: var(--text-primary);
-}
-
-.sidebarFooter {
-  padding: 12px;
-  border-top: 1px solid var(--border-light);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.upgradeBtn {
-  padding: 6px 12px;
-  background: transparent;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  color: var(--primary-blue);
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.upgradeBtn:hover {
-  background: var(--hover-bg);
-}
-
-.userAvatar {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
-  background: var(--primary-red);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
+.newProjectInput::placeholder {
+  color: var(--text-tertiary);
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 0.5px solid var(--glass-border);
   }
 }

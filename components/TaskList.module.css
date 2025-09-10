@@ -4,28 +4,35 @@
   flex-direction: column;
   background: transparent;
   min-width: 400px;
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur-heavy) saturate(180%);
+  -webkit-backdrop-filter: var(--glass-blur-heavy) saturate(180%);
+  border-radius: var(--radius-lg);
+  z-index: -1;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border-light);
-  background: var(--main-bg);
-}
-
-[data-theme="picture"] .header {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(180%) blur(40px);
-  -webkit-backdrop-filter: saturate(180%) blur(40px);
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.65);
+  padding: 24px;
+  border-bottom: 0.5px solid var(--glass-border);
+  position: relative;
+  z-index: 1;
 }
 
 .title {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 300;
   color: var(--text-primary);
+  letter-spacing: -0.5px;
 }
 
 .headerActions {
@@ -36,16 +43,18 @@
 .shareBtn {
   padding: 6px 12px;
   background: transparent;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
+  border: 0.5px solid var(--glass-border);
+  border-radius: var(--radius-full);
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-smooth);
 }
 
 .shareBtn:hover {
-  background: var(--hover-bg);
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
 }
 
 .moreBtn {
@@ -56,21 +65,21 @@
   justify-content: center;
   background: transparent;
   border: none;
-  border-radius: var(--radius-md);
   color: var(--text-secondary);
-  font-size: 18px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-smooth);
+  border-radius: var(--radius-md);
 }
 
 .moreBtn:hover {
-  background: var(--hover-bg);
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
 }
 
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: 20px 24px;
+  padding: 16px;
 }
 
 .addTaskBtn {
@@ -78,31 +87,31 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
+  padding: 14px 16px;
   background: transparent;
   border: none;
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-smooth);
   text-align: left;
+  border-radius: var(--radius-md);
 }
 
 .addTaskBtn:hover {
-  background: var(--hover-bg);
-  color: var(--text-primary);
+  background: var(--glass-bg);
+  color: var(--text-secondary);
 }
 
 .plusIcon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--checkbox-border);
+  border: 1.5px solid var(--glass-border);
   border-radius: var(--radius-full);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
 }
 
@@ -110,16 +119,19 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
-  background: var(--hover-bg);
+  padding: 14px 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 0.5px solid var(--glass-border);
   border-radius: var(--radius-md);
   margin-bottom: 8px;
 }
 
 .newTaskCheckbox {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--checkbox-border);
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--glass-border);
   border-radius: var(--radius-full);
   flex-shrink: 0;
 }
@@ -137,29 +149,34 @@
   outline: none;
 }
 
+.newTaskInput::placeholder {
+  color: var(--text-tertiary);
+}
+
 .taskList {
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .taskItem {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 12px;
+  padding: 14px 16px;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-smooth);
   position: relative;
-  border-left: 3px solid transparent;
+  margin-bottom: 2px;
 }
 
 .taskItem:hover {
-  background: var(--hover-bg);
+  background: var(--glass-bg);
 }
 
 .taskItem.selected {
-  background: var(--selected-bg);
-  border-left-color: var(--primary-red);
+  background: var(--glass-bg-hover);
+  border-left: 2px solid var(--primary-red);
+  padding-left: 14px;
 }
 
 .taskItem:hover .deleteBtn {
@@ -176,12 +193,14 @@
 .taskTitle {
   font-size: 14px;
   color: var(--text-primary);
-  line-height: 1.4;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
 .taskTitle.completed {
   text-decoration: line-through;
   color: var(--text-tertiary);
+  opacity: 0.6;
 }
 
 .taskMeta {
@@ -196,7 +215,7 @@
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
 }
 
 .dueDate.overdue {
@@ -205,8 +224,8 @@
 
 .deleteBtn {
   position: absolute;
-  right: 12px;
-  top: 12px;
+  right: 16px;
+  top: 14px;
   width: 24px;
   height: 24px;
   display: flex;
@@ -216,14 +235,13 @@
   border: none;
   border-radius: var(--radius-sm);
   color: var(--text-tertiary);
-  font-size: 20px;
   cursor: pointer;
   opacity: 0;
-  transition: all 0.2s ease;
+  transition: var(--transition-smooth);
 }
 
 .deleteBtn:hover {
-  background: var(--hover-bg);
+  background: rgba(255, 68, 68, 0.1);
   color: var(--primary-red);
 }
 
@@ -233,10 +251,10 @@
   }
   
   .header {
-    padding: 16px;
+    padding: 20px;
   }
   
   .content {
-    padding: 16px;
+    padding: 12px;
   }
 }
