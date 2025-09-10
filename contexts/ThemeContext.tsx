@@ -2,18 +2,12 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-type ThemeMode = 'light' | 'dark' | 'picture'
-
 interface ThemeContextType {
-  theme: ThemeMode
-  setTheme: (theme: ThemeMode) => void
   currentBackground: string
   changeBackground: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'light',
-  setTheme: () => {},
   currentBackground: '',
   changeBackground: () => {}
 })
@@ -33,29 +27,16 @@ const backgrounds = [
 ]
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<ThemeMode>('picture')
   const [currentBackground, setCurrentBackground] = useState(backgrounds[0])
 
   useEffect(() => {
-    // Load saved theme from localStorage
-    const savedTheme = localStorage.getItem('theme') as ThemeMode
-    if (savedTheme) {
-      setTheme(savedTheme)
-    } else {
-      // Default to picture mode if no saved theme
-      setTheme('picture')
-    }
-
+    // Set picture mode as default
+    document.documentElement.setAttribute('data-theme', 'picture')
+    
     // Set random initial background
     const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)]
     setCurrentBackground(randomBg)
   }, [])
-
-  useEffect(() => {
-    // Apply theme to document
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-  }, [theme])
 
   const changeBackground = () => {
     const currentIndex = backgrounds.indexOf(currentBackground)
@@ -64,7 +45,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, currentBackground, changeBackground }}>
+    <ThemeContext.Provider value={{ currentBackground, changeBackground }}>
       {children}
     </ThemeContext.Provider>
   )

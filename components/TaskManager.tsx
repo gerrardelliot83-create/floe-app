@@ -268,7 +268,7 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
                 />
               )}
               
-              <div className={`${styles.taskContainer} glass-panel`}>
+              <div className={styles.taskContainer}>
                 <TaskList
                   title={getViewTitle()}
                   tasks={filteredTasks}
@@ -281,13 +281,11 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
               </div>
               
               {selectedTask && (
-                <div className="glass-panel">
-                  <TaskDetails
-                    task={selectedTask}
-                    onClose={() => setSelectedTask(null)}
-                    onUpdate={updateTask}
-                  />
-                </div>
+                <TaskDetails
+                  task={selectedTask}
+                  onClose={() => setSelectedTask(null)}
+                  onUpdate={updateTask}
+                />
               )}
             </>
           )}

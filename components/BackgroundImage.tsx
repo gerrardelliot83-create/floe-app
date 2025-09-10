@@ -4,19 +4,25 @@ import { useEffect } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
 
 export default function BackgroundImage() {
-  const { theme, currentBackground } = useTheme()
+  const { currentBackground } = useTheme()
 
   useEffect(() => {
-    if (theme === 'picture' && currentBackground) {
+    if (currentBackground) {
       document.body.style.backgroundImage = `url(${currentBackground})`
-    } else {
-      document.body.style.backgroundImage = ''
+      document.body.style.backgroundSize = 'cover'
+      document.body.style.backgroundPosition = 'center'
+      document.body.style.backgroundRepeat = 'no-repeat'
+      document.body.style.backgroundAttachment = 'fixed'
     }
 
     return () => {
       document.body.style.backgroundImage = ''
+      document.body.style.backgroundSize = ''
+      document.body.style.backgroundPosition = ''
+      document.body.style.backgroundRepeat = ''
+      document.body.style.backgroundAttachment = ''
     }
-  }, [theme, currentBackground])
+  }, [currentBackground])
 
   return null
 }
