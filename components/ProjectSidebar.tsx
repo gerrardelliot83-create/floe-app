@@ -32,7 +32,7 @@ export default function ProjectSidebar({
   }
 
   return (
-    <aside className={`${styles.sidebar} glass-panel`}>
+    <aside className={styles.container}>
       <div className={styles.header}>
         <h3>Projects</h3>
         <button 
@@ -47,7 +47,7 @@ export default function ProjectSidebar({
         <div className={styles.newProject}>
           <input
             type="text"
-            className="input"
+            className={styles.newProjectInput}
             placeholder="Project name..."
             value={newProjectName}
             onChange={(e) => setNewProjectName(e.target.value)}
@@ -58,7 +58,8 @@ export default function ProjectSidebar({
         </div>
       )}
 
-      <div className={styles.projectList}>
+      <div className={styles.content}>
+        <div className={styles.projectList}>
         {projects.map(project => (
           <div
             key={project.id}
@@ -74,6 +75,7 @@ export default function ProjectSidebar({
             )}
           </div>
         ))}
+        </div>
       </div>
     </aside>
   )

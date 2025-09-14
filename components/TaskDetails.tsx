@@ -75,53 +75,70 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
   }, [task])
 
   useEffect(() => {
-    // Clean up previous editor instance
-    if (editorInstance) {
-      editorInstance.destroy()
-      setEditorInstance(null)
+    let editor: EditorJS | null = null
+    let isDestroyed = false
+
+    const setupEditor = async () => {
+      try {
+        // Wait a bit to ensure DOM is ready
+        await new Promise(resolve => setTimeout(resolve, 100))
+
+        // Check if component is still mounted and element exists
+        if (isDestroyed) return
+
+        const editorElement = document.getElementById('task-editor')
+        if (!editorElement) {
+          console.warn('Editor element not found')
+          return
+        }
+
+        const EditorJS = (await import('@editorjs/editorjs')).default
+        const Header = (await import('@editorjs/header')).default
+        const Checklist = (await import('@editorjs/checklist')).default
+
+        editor = new EditorJS({
+          holder: 'task-editor',
+          data: task.content || { blocks: [] },
+          tools: {
+            header: {
+              class: Header,
+              config: {
+                levels: [2, 3],
+                defaultLevel: 2
+              }
+            },
+            checklist: {
+              class: Checklist,
+              inlineToolbar: true
+            }
+          },
+          placeholder: 'Add notes, checklists, and more...'
+        })
+
+        if (!isDestroyed) {
+          setEditorInstance(editor)
+        }
+      } catch (error) {
+        console.error('Error initializing editor:', error)
+      }
     }
 
-    // Initialize new editor for new task
-    initEditor()
+    setupEditor()
 
     return () => {
-      if (editorInstance) {
-        editorInstance.destroy()
+      isDestroyed = true
+      if (editor && typeof editor.destroy === 'function') {
+        editor.destroy().catch(console.error)
       }
     }
   }, [task.id])
 
-  const initEditor = async () => {
-    const EditorJS = (await import('@editorjs/editorjs')).default
-    const Header = (await import('@editorjs/header')).default
-    const Checklist = (await import('@editorjs/checklist')).default
-
-    const editor = new EditorJS({
-      holder: 'task-editor',
-      data: task.content || { blocks: [] },
-      tools: {
-        header: {
-          class: Header,
-          config: {
-            levels: [2, 3],
-            defaultLevel: 2
-          }
-        },
-        checklist: {
-          class: Checklist,
-          inlineToolbar: true
-        }
-      },
-      placeholder: 'Add notes, checklists, and more...'
-    })
-
-    setEditorInstance(editor)
-  }
 
   const handleSave = async () => {
     if (!editorInstance) return
 
-    const content = await editorInstance.save()
+    try {
+      const content = await editorInstance.save()
 
     const updatedTask = {
       ...task,
@@ -132,7 +149,10 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
       content
     }
 
-    onUpdate(updatedTask)
+      onUpdate(updatedTask)
+    } catch (error) {
+      console.error('Error saving task:', error)
+    }
   }
 
   const addLabel = (label: Label) => {
