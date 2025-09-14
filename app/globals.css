@@ -4,32 +4,36 @@
   box-sizing: border-box;
 }
 
-/* Base Theme Variables */
+/* Dark Mode Theme Variables */
 :root {
   --primary-red: #FF4444;
   --primary-red-hover: #FF3333;
   --primary-blue: #0066FF;
-  
-  /* Minimalist Color Palette */
+
+  /* Dark Mode Color Palette */
   --text-primary: rgba(255, 255, 255, 0.95);
-  --text-secondary: rgba(255, 255, 255, 0.6);
-  --text-tertiary: rgba(255, 255, 255, 0.4);
-  
-  /* Glassmorphism Variables */
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-bg-hover: rgba(255, 255, 255, 0.15);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-blur: blur(30px);
-  --glass-blur-heavy: blur(50px);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+
+  /* Dark Glassmorphism Variables */
+  --glass-bg: rgba(20, 20, 20, 0.75);
+  --glass-bg-hover: rgba(30, 30, 30, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(20px);
+  --glass-blur-heavy: blur(40px);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  /* Panel Background */
+  --panel-bg: rgba(25, 25, 25, 0.85);
+  --panel-bg-hover: rgba(35, 35, 35, 0.9);
+
   /* Layout */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
-  
+
   /* Transitions */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-spring: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -52,7 +56,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: #0A0A0A;
+  background: #000000;
   color: var(--text-primary);
   min-height: 100vh;
   font-size: 14px;
@@ -83,11 +87,11 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
-/* Glassmorphic Panel Base */
+/* Dark Glassmorphic Panel Base */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(30px) saturate(150%) brightness(1.05);
-  -webkit-backdrop-filter: blur(30px) saturate(150%) brightness(1.05);
+  backdrop-filter: var(--glass-blur) saturate(120%);
+  -webkit-backdrop-filter: var(--glass-blur) saturate(120%);
   border: 0.5px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   position: relative;
@@ -131,23 +135,26 @@ body::before {
   overflow: hidden;
 }
 
-/* Checkbox Styling */
+/* Dark Mode Checkbox Styling */
 .checkbox {
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkbox:hover {
-  border-color: rgba(0, 0, 0, 0.4);
-  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
 }
 
@@ -157,15 +164,11 @@ body::before {
 }
 
 .checkbox.checked::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
+  content: '✓';
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
 }
 
 /* Global divider */
@@ -178,7 +181,7 @@ body::before {
 /* Timestamp styling */
 .timestamp {
   font-size: 11px;
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* Tag styling */
@@ -189,10 +192,10 @@ body::before {
   border-radius: 12px;
   font-size: 11px;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  color: rgba(0, 0, 0, 0.7);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .tag.red {

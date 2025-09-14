@@ -173,33 +173,39 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
   const getFilteredTasks = () => {
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
     // If projects view is selected, show project tasks
     if (selectedView === 'projects' && selectedProject) {
       return tasks.filter(t => t.project_id === selectedProject)
     }
-    
+
     switch(selectedView) {
       case 'home':
         return [] // Home view doesn't show tasks
       case 'today':
         return tasks.filter(t => {
           if (t.completed) return false
-          if (!t.due_date) return false
+          if (!t.due_date) return false // Must have a due date
           const dueDate = new Date(t.due_date)
-          return dueDate.toDateString() === today.toDateString()
+          const dueDateOnly = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate())
+          return dueDateOnly.getTime() === today.getTime()
         })
       case 'upcoming':
         return tasks.filter(t => {
           if (t.completed) return false
-          if (!t.due_date) return false
+          if (!t.due_date) return false // Must have a due date
           const dueDate = new Date(t.due_date)
-          return dueDate > today
-        }).sort((a, b) => 
+          const dueDateOnly = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate())
+          return dueDateOnly.getTime() >= tomorrow.getTime()
+        }).sort((a, b) =>
           new Date(a.due_date!).getTime() - new Date(b.due_date!).getTime()
         )
-      default:
+      case 'inbox':
         return tasks.filter(t => !t.project_id && !t.completed)
+      default:
+        return tasks.filter(t => !t.completed)
     }
   }
 

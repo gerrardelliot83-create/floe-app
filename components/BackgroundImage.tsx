@@ -34,7 +34,7 @@ export default function BackgroundImage() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.35)',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
           pointerEvents: 'none',
           zIndex: 0
         }}
@@ -47,7 +47,7 @@ export default function BackgroundImage() {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%)',
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%)',
           pointerEvents: 'none',
           zIndex: 0
         }}

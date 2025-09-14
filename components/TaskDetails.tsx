@@ -12,23 +12,46 @@ interface TaskDetailsProps {
   onUpdate: (task: Task) => void
 }
 
-const PRESET_LABELS = [
-  { name: 'bug', color: '#FF4444' },
-  { name: 'feature', color: '#4CAF50' },
-  { name: 'enhancement', color: '#2196F3' },
-  { name: 'documentation', color: '#9C27B0' },
-  { name: 'help wanted', color: '#FF9800' },
-  { name: 'question', color: '#00BCD4' },
-  { name: 'wontfix', color: '#9E9E9E' },
-  { name: 'duplicate', color: '#795548' }
+interface Label {
+  name: string
+  color: string
+}
+
+const PRESET_COLORS = [
+  '#FF4444', // Red
+  '#FF6B6B', // Light Red
+  '#4CAF50', // Green
+  '#2196F3', // Blue
+  '#9C27B0', // Purple
+  '#FF9800', // Orange
+  '#00BCD4', // Cyan
+  '#795548', // Brown
+  '#9E9E9E', // Grey
+  '#F44336', // Material Red
+  '#E91E63', // Pink
+  '#3F51B5', // Indigo
+  '#009688', // Teal
+  '#FFC107', // Amber
+  '#607D8B', // Blue Grey
 ]
 
 export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProps) {
   const [title, setTitle] = useState(task.title)
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(task.priority || 'medium')
   const [dueDate, setDueDate] = useState(task.due_date ? task.due_date.split('T')[0] : '')
-  const [labels, setLabels] = useState<string[]>(task.labels || [])
+  const [labels, setLabels] = useState<Label[]>(() => {
+    // Parse labels from task (could be string array or Label array)
+    if (!task.labels || task.labels.length === 0) return []
+    if (typeof task.labels[0] === 'string') {
+      // Convert string labels to Label objects with default color
+      return (task.labels as string[]).map(name => ({ name, color: '#666' }))
+    }
+    return task.labels as unknown as Label[]
+  })
   const [showLabelPicker, setShowLabelPicker] = useState(false)
+  const [showCreateLabel, setShowCreateLabel] = useState(false)
+  const [newLabelName, setNewLabelName] = useState('')
+  const [newLabelColor, setNewLabelColor] = useState('#2196F3')
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null)
 
   useEffect(() => {
@@ -77,20 +100,33 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
       title,
       priority: priority as 'low' | 'medium' | 'high',
       due_date: dueDate ? new Date(dueDate + 'T23:59:59').toISOString() : undefined,
-      labels,
+      labels: labels as any, // Store as Label objects
       content
     }
 
     onUpdate(updatedTask)
   }
 
-  const toggleLabel = (label: string) => {
-    if (labels.includes(label)) {
-      setLabels(labels.filter(l => l !== label))
-    } else {
+  const addLabel = (label: Label) => {
+    if (!labels.find(l => l.name === label.name)) {
       setLabels([...labels, label])
+      setTimeout(handleSave, 100)
     }
+  }
+
+  const removeLabel = (labelName: string) => {
+    setLabels(labels.filter(l => l.name !== labelName))
     setTimeout(handleSave, 100)
+  }
+
+  const createNewLabel = () => {
+    if (newLabelName.trim()) {
+      addLabel({ name: newLabelName.trim(), color: newLabelColor })
+      setNewLabelName('')
+      setNewLabelColor('#2196F3')
+      setShowCreateLabel(false)
+      setShowLabelPicker(false)
+    }
   }
 
   const formatDate = (date: string) => {
@@ -102,15 +138,6 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
       hour: '2-digit',
       minute: '2-digit'
     })
-  }
-
-  const getPriorityIcon = () => {
-    switch(priority) {
-      case 'high': return '🔴'
-      case 'medium': return '🟡'
-      case 'low': return '🟢'
-      default: return '⚪'
-    }
   }
 
   return (
@@ -197,16 +224,14 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
               <div className={styles.labelContainer}>
                 {labels.map((label) => (
                   <span
-                    key={label}
+                    key={label.name}
                     className={styles.label}
-                    style={{
-                      backgroundColor: PRESET_LABELS.find(l => l.name === label)?.color || '#666'
-                    }}
+                    style={{ backgroundColor: label.color }}
                   >
-                    {label}
+                    {label.name}
                     <button
                       className={styles.labelRemove}
-                      onClick={() => toggleLabel(label)}
+                      onClick={() => removeLabel(label.name)}
                     >
                       ×
                     </button>
@@ -222,14 +247,25 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
 
               {showLabelPicker && (
                 <div className={styles.labelPicker}>
-                  {PRESET_LABELS.filter(l => !labels.includes(l.name)).map((label) => (
+                  <button
+                    className={styles.createLabelBtn}
+                    onClick={() => {
+                      setShowCreateLabel(true)
+                      setShowLabelPicker(false)
+                    }}
+                  >
+                    <Icon name="plus" size={14} />
+                    Create new label
+                  </button>
+                  {/* Show existing labels from task history */}
+                  {labels.length > 0 && (
+                    <div className={styles.labelDivider}>Recent</div>
+                  )}
+                  {labels.slice(0, 5).map((label) => (
                     <button
                       key={label.name}
                       className={styles.labelOption}
-                      onClick={() => {
-                        toggleLabel(label.name)
-                        setShowLabelPicker(false)
-                      }}
+                      onClick={() => setShowLabelPicker(false)}
                     >
                       <span
                         className={styles.labelDot}
@@ -238,6 +274,63 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
                       {label.name}
                     </button>
                   ))}
+                </div>
+              )}
+
+              {showCreateLabel && (
+                <div className={styles.createLabelModal}>
+                  <div className={styles.createLabelHeader}>
+                    <h4>Create Label</h4>
+                    <button
+                      className={styles.closeLabelModal}
+                      onClick={() => {
+                        setShowCreateLabel(false)
+                        setNewLabelName('')
+                      }}
+                    >
+                      <Icon name="x" size={16} />
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    className={styles.labelNameInput}
+                    placeholder="Label name"
+                    value={newLabelName}
+                    onChange={(e) => setNewLabelName(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') createNewLabel()
+                    }}
+                    autoFocus
+                  />
+                  <div className={styles.colorPickerLabel}>Choose color</div>
+                  <div className={styles.colorPicker}>
+                    {PRESET_COLORS.map((color) => (
+                      <button
+                        key={color}
+                        className={`${styles.colorOption} ${newLabelColor === color ? styles.selected : ''}`}
+                        style={{ backgroundColor: color }}
+                        onClick={() => setNewLabelColor(color)}
+                      />
+                    ))}
+                  </div>
+                  <div className={styles.createLabelActions}>
+                    <button
+                      className={styles.cancelBtn}
+                      onClick={() => {
+                        setShowCreateLabel(false)
+                        setNewLabelName('')
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className={styles.saveBtn}
+                      onClick={createNewLabel}
+                      disabled={!newLabelName.trim()}
+                    >
+                      Create
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
