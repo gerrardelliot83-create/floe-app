@@ -4,37 +4,30 @@
   box-sizing: border-box;
 }
 
-/* Sophisticated Dark Mode Theme */
+/* Light Glassmorphic Theme */
 :root {
   --primary-red: #FF4444;
   --primary-red-hover: #FF3333;
-  --primary-blue: #4A9EFF;
-  --primary-accent: #7C3AED;
+  --primary-blue: #0066FF;
 
-  /* Refined Dark Palette */
-  --bg-primary: #0F0F10;
-  --bg-secondary: #18181B;
-  --bg-tertiary: #1F1F23;
-  --bg-elevated: #27272A;
+  /* Light Color Palette */
+  --text-primary: rgba(0, 0, 0, 0.85);
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --text-tertiary: rgba(0, 0, 0, 0.4);
+  --text-muted: rgba(0, 0, 0, 0.3);
 
-  /* Text Colors */
-  --text-primary: rgba(244, 244, 245, 0.95);
-  --text-secondary: rgba(161, 161, 170, 0.9);
-  --text-tertiary: rgba(113, 113, 122, 0.8);
-  --text-muted: rgba(82, 82, 91, 0.7);
+  /* Light Glassmorphism Variables */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-hover: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-blur: blur(20px);
+  --glass-blur-heavy: blur(40px);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 
-  /* Sophisticated Glassmorphism */
-  --glass-bg: rgba(24, 24, 27, 0.6);
-  --glass-bg-hover: rgba(39, 39, 42, 0.7);
-  --glass-border: rgba(63, 63, 70, 0.4);
-  --glass-blur: blur(16px);
-  --glass-blur-heavy: blur(24px);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-
-  /* Panel Styling */
-  --panel-bg: rgba(24, 24, 27, 0.8);
-  --panel-bg-hover: rgba(39, 39, 42, 0.85);
-  --panel-border: rgba(63, 63, 70, 0.3);
+  /* Panel Background */
+  --panel-bg: rgba(255, 255, 255, 0.75);
+  --panel-bg-hover: rgba(255, 255, 255, 0.85);
+  --panel-border: rgba(255, 255, 255, 0.2);
 
   /* Layout */
   --radius-sm: 8px;
@@ -65,7 +58,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--bg-primary);
+  background: #0A0A0A;
   color: var(--text-primary);
   min-height: 100vh;
   font-size: 14px;
@@ -96,12 +89,12 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
-/* Sophisticated Glassmorphic Panel */
+/* Light Glassmorphic Panel Base */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur) saturate(180%) contrast(90%);
-  -webkit-backdrop-filter: var(--glass-blur) saturate(180%) contrast(90%);
-  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur) saturate(150%);
+  -webkit-backdrop-filter: var(--glass-blur) saturate(150%);
+  border: 0.5px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   position: relative;
   overflow: hidden;
@@ -144,25 +137,26 @@ body::before {
   overflow: hidden;
 }
 
-/* Refined Checkbox Styling */
+/* Light Mode Checkbox Styling */
 .checkbox {
   width: 18px;
   height: 18px;
-  border: 2px solid var(--text-tertiary);
+  border: 2px solid rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
   flex-shrink: 0;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .checkbox:hover {
-  border-color: var(--text-secondary);
-  background: rgba(161, 161, 170, 0.1);
+  border-color: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.7);
   transform: scale(1.1);
 }
 
@@ -181,15 +175,15 @@ body::before {
 
 /* Global divider */
 .divider {
-  height: 1px;
-  background: rgba(63, 63, 70, 0.3);
+  height: 0.5px;
+  background: rgba(255, 255, 255, 0.2);
   margin: 20px 0;
 }
 
 /* Timestamp styling */
 .timestamp {
   font-size: 11px;
-  color: var(--text-muted);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 /* Tag styling */
@@ -200,10 +194,10 @@ body::before {
   border-radius: 12px;
   font-size: 11px;
   font-weight: 500;
-  background: rgba(63, 63, 70, 0.3);
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(63, 63, 70, 0.4);
-  color: var(--text-secondary);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .tag.red {
@@ -227,10 +221,10 @@ body::before {
 /* Buttons */
 .btn {
   padding: 10px 20px;
-  background: rgba(39, 39, 42, 0.5);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(63, 63, 70, 0.4);
+  border: 0.5px solid var(--glass-border);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-size: 13px;
