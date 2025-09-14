@@ -29,7 +29,6 @@ export default function TopNavigation({
 
   const navItems = [
     { id: 'home', label: 'Home', count: 0 },
-    { id: 'today', label: 'Today', count: taskCounts.today },
     { id: 'upcoming', label: 'Upcoming', count: taskCounts.upcoming },
     { id: 'projects', label: 'Projects', count: 0 }
   ]

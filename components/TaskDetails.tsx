@@ -54,8 +54,36 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
   const [newLabelColor, setNewLabelColor] = useState('#2196F3')
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null)
 
+  // Update state when task prop changes
   useEffect(() => {
+    setTitle(task.title)
+    setPriority(task.priority || 'medium')
+    setDueDate(task.due_date ? task.due_date.split('T')[0] : '')
+
+    // Parse labels from task
+    if (!task.labels || task.labels.length === 0) {
+      setLabels([])
+    } else if (typeof task.labels[0] === 'string') {
+      setLabels((task.labels as string[]).map(name => ({ name, color: '#666' })))
+    } else {
+      setLabels(task.labels as unknown as Label[])
+    }
+
+    // Reset picker states
+    setShowLabelPicker(false)
+    setShowCreateLabel(false)
+  }, [task])
+
+  useEffect(() => {
+    // Clean up previous editor instance
+    if (editorInstance) {
+      editorInstance.destroy()
+      setEditorInstance(null)
+    }
+
+    // Initialize new editor for new task
     initEditor()
+
     return () => {
       if (editorInstance) {
         editorInstance.destroy()

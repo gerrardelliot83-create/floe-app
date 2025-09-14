@@ -89,12 +89,7 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
     let projectId: string | null = null
     let dueDate: string | undefined = undefined
 
-    if (selectedView === 'today') {
-      // Tasks created in Today view get today's date
-      const today = new Date()
-      today.setHours(23, 59, 59, 999)
-      dueDate = today.toISOString()
-    } else if (selectedView === 'upcoming') {
+    if (selectedView === 'upcoming') {
       // Tasks created in Upcoming view get tomorrow's date by default
       const tomorrow = new Date()
       tomorrow.setDate(tomorrow.getDate() + 1)
@@ -184,21 +179,14 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
     switch(selectedView) {
       case 'home':
         return [] // Home view doesn't show tasks
-      case 'today':
-        return tasks.filter(t => {
-          if (t.completed) return false
-          if (!t.due_date) return false // Must have a due date
-          const dueDate = new Date(t.due_date)
-          const dueDateOnly = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate())
-          return dueDateOnly.getTime() === today.getTime()
-        })
       case 'upcoming':
         return tasks.filter(t => {
           if (t.completed) return false
-          if (!t.due_date) return false // Must have a due date
+          if (!t.due_date) return false // Must have a due date for upcoming view
           const dueDate = new Date(t.due_date)
           const dueDateOnly = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate())
-          return dueDateOnly.getTime() >= tomorrow.getTime()
+          // Show all tasks with due dates from today onwards
+          return dueDateOnly.getTime() >= today.getTime()
         }).sort((a, b) =>
           new Date(a.due_date!).getTime() - new Date(b.due_date!).getTime()
         )
@@ -214,12 +202,7 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
   // Calculate task counts for sidebar
   const taskCounts = {
     inbox: tasks.filter(t => !t.project_id && !t.completed).length,
-    today: tasks.filter(t => {
-      if (t.completed || !t.due_date) return false
-      const today = new Date()
-      const dueDate = new Date(t.due_date)
-      return dueDate.toDateString() === today.toDateString()
-    }).length,
+    today: 0, // Keep for compatibility but not used
     ...projects.reduce((acc, project) => ({
       ...acc,
       [project.id]: tasks.filter(t => t.project_id === project.id && !t.completed).length
@@ -234,7 +217,6 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
     
     switch(selectedView) {
       case 'home': return 'Home'
-      case 'today': return 'Today'
       case 'upcoming': return 'Upcoming'
       case 'projects': return 'Projects'
       default: return 'Tasks'
@@ -270,7 +252,9 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
               if (t.completed || !t.due_date) return false
               const dueDate = new Date(t.due_date)
               const today = new Date()
-              return dueDate > today
+              today.setHours(0, 0, 0, 0)
+              const dueDateOnly = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate())
+              return dueDateOnly.getTime() >= today.getTime()
             }).length
           }}
         />
