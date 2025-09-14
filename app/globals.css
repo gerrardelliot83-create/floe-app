@@ -19,8 +19,8 @@
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-bg-hover: rgba(255, 255, 255, 0.15);
   --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-blur: blur(80px);
-  --glass-blur-heavy: blur(120px);
+  --glass-blur: blur(30px);
+  --glass-blur-heavy: blur(50px);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   
   /* Layout */
@@ -86,8 +86,8 @@ body::before {
 /* Glassmorphic Panel Base */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur) saturate(180%);
-  -webkit-backdrop-filter: var(--glass-blur) saturate(180%);
+  backdrop-filter: blur(30px) saturate(150%) brightness(1.05);
+  -webkit-backdrop-filter: blur(30px) saturate(150%) brightness(1.05);
   border: 0.5px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   position: relative;
@@ -129,6 +129,88 @@ body::before {
   flex: 1;
   display: flex;
   overflow: hidden;
+}
+
+/* Checkbox Styling */
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.checkbox:hover {
+  border-color: rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.checkbox.checked {
+  background: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.checkbox.checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* Global divider */
+.divider {
+  height: 0.5px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 20px 0;
+}
+
+/* Timestamp styling */
+.timestamp {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* Tag styling */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.tag.red {
+  background: rgba(255, 68, 68, 0.2);
+  color: #FF4444;
+  border-color: rgba(255, 68, 68, 0.3);
+}
+
+.tag.green {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.tag.blue {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+  border-color: rgba(33, 150, 243, 0.3);
 }
 
 /* Buttons */

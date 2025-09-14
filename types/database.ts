@@ -17,6 +17,7 @@ export interface Task {
   completed: boolean
   priority?: 'low' | 'medium' | 'high'
   due_date?: string
+  labels?: string[]
   created_at: string
   updated_at: string
   order: number

@@ -1,5 +1,5 @@
 .container {
-  width: 400px;
+  width: 420px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -7,6 +7,7 @@
   background: transparent;
   border-left: 0.5px solid rgba(255, 255, 255, 0.2);
   position: relative;
+  flex-shrink: 0;
 }
 
 .header {
@@ -87,15 +88,21 @@
   background: rgba(255, 255, 255, 0.4);
 }
 
+.taskHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
 .titleInput {
-  width: 100%;
+  flex: 1;
   padding: 0;
   font-size: 20px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.85);
   background: transparent;
   border: none;
-  margin-bottom: 24px;
   letter-spacing: -0.5px;
 }
 
@@ -110,74 +117,224 @@
 .metadata {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   padding-bottom: 24px;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
-  margin-bottom: 24px;
 }
 
-.metaItem {
+.metaRow {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .metaLabel {
-  width: 100px;
-  font-size: 13px;
-  color: rgba(0, 0, 0, 0.5);
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .metaValue {
-  flex: 1;
+  position: relative;
 }
 
-.prioritySelect {
-  padding: 6px 12px;
+/* Date Input Styling */
+.dateInput {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dateInput:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  filter: invert(0.2);
+  cursor: pointer;
+}
+
+/* Priority Picker */
+.priorityPicker {
+  display: flex;
+  gap: 8px;
+}
+
+.priorityBtn {
+  flex: 1;
+  padding: 10px 16px;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   border: 0.5px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.6);
   font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.priorityBtn:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.priorityBtn.active {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Labels */
+.labelContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.labelRemove {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.labelRemove:hover {
+  opacity: 1;
+}
+
+.addLabelBtn {
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.prioritySelect:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.prioritySelect option {
-  background: white;
-  color: black;
-}
-
-.dueDateInput {
-  padding: 6px 12px;
+.addLabelBtn:hover {
   background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.3);
   color: rgba(0, 0, 0, 0.7);
+}
+
+.labelPicker {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.labelOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
   font-size: 13px;
-  transition: all 0.2s ease;
+  color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
 }
 
-.dueDateInput:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.4);
+.labelOption:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
-.dueDateInput::-webkit-calendar-picker-indicator {
-  filter: invert(0.2);
+.labelDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
-.descriptionSection {
+/* Divider */
+.divider {
+  height: 0.5px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 24px 0;
+}
+
+/* Editor Section */
+.editorSection {
   margin-bottom: 24px;
 }
 
@@ -190,137 +347,96 @@
   margin-bottom: 12px;
 }
 
-.descriptionTextarea {
-  width: 100%;
-  min-height: 100px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 14px;
-  font-family: inherit;
-  resize: vertical;
-  transition: all 0.2s ease;
-}
-
-.descriptionTextarea:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.descriptionTextarea::placeholder {
-  color: rgba(0, 0, 0, 0.3);
-}
-
-.editorContainer {
+.editor {
   min-height: 200px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-}
-
-.attachmentSection {
-  margin-bottom: 24px;
-}
-
-.attachmentList {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.attachmentItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.attachmentItem:hover {
+  padding: 16px;
   background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: rgba(0, 0, 0, 0.8);
 }
 
-.attachmentIcon {
-  width: 32px;
-  height: 32px;
+/* EditorJS Styling */
+.editor :global(.ce-block__content) {
+  max-width: 100%;
+  margin: 0;
+}
+
+.editor :global(.ce-header) {
+  padding: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 600;
+}
+
+.editor :global(.ce-paragraph) {
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.editor :global(.cdx-checklist__item) {
+  padding: 8px 0;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor :global(.cdx-checklist__item-checkbox) {
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.editor :global(.cdx-checklist__item--checked .cdx-checklist__item-checkbox) {
+  background: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.editor :global(.ce-toolbar__content),
+.editor :global(.ce-block__content) {
+  max-width: 100% !important;
+}
+
+.editor :global(.codex-editor__redactor) {
+  padding-bottom: 100px !important;
+}
+
+/* Activity Section */
+.activity {
+  margin-top: 24px;
+}
+
+.activityItem {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.activityItem:last-child {
+  border-bottom: none;
+}
+
+.activityIcon {
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-}
-
-.attachmentName {
-  flex: 1;
-  font-size: 13px;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.attachmentSize {
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.uploadBtn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: transparent;
-  border: 1px dashed rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 12px;
-}
-
-.uploadBtn:hover {
   background: rgba(255, 255, 255, 0.3);
-  border-style: solid;
-  color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
-.footer {
-  padding: 16px 24px;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.footerMeta {
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.deleteBtn {
-  padding: 8px 16px;
-  background: transparent;
-  border: 0.5px solid rgba(255, 68, 68, 0.3);
-  border-radius: 8px;
-  color: #FF4444;
+.activityText {
   font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0;
 }
 
-.deleteBtn:hover {
-  background: rgba(255, 68, 68, 0.1);
-  border-color: #FF4444;
+.timestamp {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.4);
+  margin-top: 2px;
+  display: block;
 }
 
 @media (max-width: 768px) {

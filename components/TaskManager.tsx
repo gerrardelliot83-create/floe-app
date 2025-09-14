@@ -83,12 +83,27 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
   const createTask = async (title: string) => {
     if (!title.trim() || !user) return
 
-    // For special views like 'inbox', 'today', create without project
-    const projectId = ['inbox', 'today', 'upcoming'].includes(selectedProject || '') 
-      ? null 
-      : selectedProject
-
     const maxOrder = Math.max(...tasks.map(t => t.order), 0)
+
+    // Determine project and due date based on current view
+    let projectId: string | null = null
+    let dueDate: string | undefined = undefined
+
+    if (selectedView === 'today') {
+      // Tasks created in Today view get today's date
+      const today = new Date()
+      today.setHours(23, 59, 59, 999)
+      dueDate = today.toISOString()
+    } else if (selectedView === 'upcoming') {
+      // Tasks created in Upcoming view get tomorrow's date by default
+      const tomorrow = new Date()
+      tomorrow.setDate(tomorrow.getDate() + 1)
+      tomorrow.setHours(23, 59, 59, 999)
+      dueDate = tomorrow.toISOString()
+    } else if (selectedView === 'projects' && selectedProject) {
+      // Tasks created in Projects view belong to that project
+      projectId = selectedProject
+    }
 
     const { data, error } = await supabase
       .from('tasks')
@@ -97,7 +112,8 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
         project_id: projectId,
         user_id: user.id,
         completed: false,
-        order: maxOrder + 1
+        order: maxOrder + 1,
+        due_date: dueDate
       }])
       .select()
       .single()

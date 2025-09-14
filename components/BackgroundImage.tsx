@@ -24,5 +24,34 @@ export default function BackgroundImage() {
     }
   }, [currentBackground])
 
-  return null
+  return (
+    <>
+      {/* Dark overlay for better readability */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
+          pointerEvents: 'none',
+          zIndex: 0
+        }}
+      />
+      {/* Gradient overlay for depth */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%)',
+          pointerEvents: 'none',
+          zIndex: 0
+        }}
+      />
+    </>
+  )
 }
