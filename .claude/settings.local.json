@@ -10,7 +10,8 @@
       "Bash(npm run build:*)",
       "Bash(npm ls:*)",
       "Bash(npx tsc:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Read(//mnt/c/Users/Dell/Desktop/floe/Screenshots/**)"
     ],
     "deny": [],
     "ask": []

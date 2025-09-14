@@ -26,7 +26,7 @@ export default function BackgroundImage() {
 
   return (
     <>
-      {/* Dark overlay for better readability */}
+      {/* Sophisticated dark overlay */}
       <div
         style={{
           position: 'fixed',
@@ -34,12 +34,12 @@ export default function BackgroundImage() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backgroundColor: 'rgba(15, 15, 16, 0.45)',
           pointerEvents: 'none',
           zIndex: 0
         }}
       />
-      {/* Gradient overlay for depth */}
+      {/* Subtle gradient for depth */}
       <div
         style={{
           position: 'fixed',
@@ -47,7 +47,7 @@ export default function BackgroundImage() {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%)',
+          background: 'linear-gradient(180deg, rgba(15,15,16,0.2) 0%, rgba(15,15,16,0.4) 100%)',
           pointerEvents: 'none',
           zIndex: 0
         }}
