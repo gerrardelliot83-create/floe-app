@@ -128,7 +128,18 @@ export default function TaskDetails({ task, onClose, onUpdate }: TaskDetailsProp
     return () => {
       isDestroyed = true
       if (editor && typeof editor.destroy === 'function') {
-        editor.destroy().catch(console.error)
+        try {
+          // Call destroy and handle both void and Promise return types
+          (async () => {
+            try {
+              await editor.destroy()
+            } catch (error) {
+              console.error('Error destroying editor:', error)
+            }
+          })()
+        } catch (error) {
+          console.error('Error destroying editor:', error)
+        }
       }
     }
   }, [task.id])
