@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Task } from '@/types/database'
+import { Task, Project } from '@/types/database'
 import Icon from './Icon'
 import styles from './TaskList.module.css'
 
@@ -9,9 +9,12 @@ interface TaskListProps {
   title: string
   tasks: Task[]
   selectedTask: Task | null
+  projects?: Project[]
+  currentView?: string
   onToggleTask: (task: Task) => void
   onSelectTask: (task: Task) => void
-  onCreateTask: (title: string) => void
+  onCreateTask: (title: string, projectId?: string | null) => void
+  onCreateProject?: (name: string) => Promise<string | null>
   onDeleteTask: (taskId: string) => void
 }
 
@@ -19,20 +22,48 @@ export default function TaskList({
   title,
   tasks,
   selectedTask,
+  projects,
+  currentView,
   onToggleTask,
   onSelectTask,
   onCreateTask,
+  onCreateProject,
   onDeleteTask
 }: TaskListProps) {
   const [newTaskTitle, setNewTaskTitle] = useState('')
   const [showNewTask, setShowNewTask] = useState(false)
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
+  const [showProjectSelector, setShowProjectSelector] = useState(false)
+  const [newProjectName, setNewProjectName] = useState('')
+  const [isCreatingProject, setIsCreatingProject] = useState(false)
 
-  const handleCreateTask = () => {
+  const handleCreateTask = async () => {
     if (newTaskTitle.trim()) {
-      onCreateTask(newTaskTitle)
+      // For Upcoming view, use selected project if any
+      const projectId = currentView === 'upcoming' ? selectedProjectId : null
+      onCreateTask(newTaskTitle, projectId)
       setNewTaskTitle('')
+      setSelectedProjectId(null)
       setShowNewTask(false)
+      setShowProjectSelector(false)
     }
+  }
+
+  const handleCreateProject = async () => {
+    if (newProjectName.trim() && onCreateProject) {
+      const newProjectId = await onCreateProject(newProjectName)
+      if (newProjectId) {
+        setSelectedProjectId(newProjectId)
+        setNewProjectName('')
+        setIsCreatingProject(false)
+      }
+    }
+  }
+
+  const getProjectName = (projectId: string | null) => {
+    if (!projectId || !projects) return 'No Project'
+    const project = projects.find(p => p.id === projectId)
+    return project?.name || 'No Project'
   }
 
   const formatDate = (date: string) => {
@@ -79,24 +110,116 @@ export default function TaskList({
 
       <div className={styles.content}>
         {showNewTask ? (
-          <div className={styles.newTaskForm}>
-            <div className={styles.newTaskCheckbox} />
-            <input
-              type="text"
-              className={styles.newTaskInput}
-              placeholder="What needs to be done?"
-              value={newTaskTitle}
-              onChange={(e) => setNewTaskTitle(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') handleCreateTask()
-                if (e.key === 'Escape') {
-                  setNewTaskTitle('')
-                  setShowNewTask(false)
-                }
-              }}
-              onBlur={() => !newTaskTitle && setShowNewTask(false)}
-              autoFocus
-            />
+          <div className={styles.newTaskWrapper}>
+            <div className={styles.newTaskForm}>
+              <div className={styles.newTaskCheckbox} />
+              <input
+                type="text"
+                className={styles.newTaskInput}
+                placeholder="What needs to be done?"
+                value={newTaskTitle}
+                onChange={(e) => setNewTaskTitle(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && !showProjectSelector) handleCreateTask()
+                  if (e.key === 'Escape') {
+                    setNewTaskTitle('')
+                    setShowNewTask(false)
+                    setShowProjectSelector(false)
+                  }
+                }}
+                autoFocus
+              />
+              {currentView === 'upcoming' && projects && (
+                <button
+                  className={styles.projectSelectorBtn}
+                  onClick={() => setShowProjectSelector(!showProjectSelector)}
+                  title="Select Project"
+                >
+                  <Icon name="folder" size={14} />
+                  <span>{getProjectName(selectedProjectId)}</span>
+                  <Icon name="chevronDown" size={12} />
+                </button>
+              )}
+            </div>
+
+            {showProjectSelector && currentView === 'upcoming' && projects && (
+              <div className={styles.projectDropdown}>
+                {!isCreatingProject ? (
+                  <>
+                    <button
+                      className={styles.projectOption}
+                      onClick={() => {
+                        setSelectedProjectId(null)
+                        setShowProjectSelector(false)
+                      }}
+                    >
+                      <Icon name="inbox" size={14} />
+                      <span>No Project (Inbox)</span>
+                    </button>
+
+                    {projects.map(project => (
+                      <button
+                        key={project.id}
+                        className={styles.projectOption}
+                        onClick={() => {
+                          setSelectedProjectId(project.id)
+                          setShowProjectSelector(false)
+                        }}
+                      >
+                        <Icon name="circleFilled" size={8} color={project.color || '#666'} />
+                        <span>{project.name}</span>
+                      </button>
+                    ))}
+
+                    <div className={styles.divider} />
+
+                    <button
+                      className={styles.createProjectBtn}
+                      onClick={() => setIsCreatingProject(true)}
+                    >
+                      <Icon name="plus" size={14} />
+                      <span>Create New Project</span>
+                    </button>
+                  </>
+                ) : (
+                  <div className={styles.createProjectForm}>
+                    <input
+                      type="text"
+                      className={styles.projectNameInput}
+                      placeholder="Project name..."
+                      value={newProjectName}
+                      onChange={(e) => setNewProjectName(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') handleCreateProject()
+                        if (e.key === 'Escape') {
+                          setNewProjectName('')
+                          setIsCreatingProject(false)
+                        }
+                      }}
+                      autoFocus
+                    />
+                    <div className={styles.createProjectActions}>
+                      <button
+                        className={styles.cancelBtn}
+                        onClick={() => {
+                          setNewProjectName('')
+                          setIsCreatingProject(false)
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className={styles.saveBtn}
+                        onClick={handleCreateProject}
+                        disabled={!newProjectName.trim()}
+                      >
+                        Create
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <button 

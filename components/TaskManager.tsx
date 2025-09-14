@@ -61,8 +61,8 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
     }
   }
 
-  const createProject = async (name: string) => {
-    if (!name.trim() || !user) return
+  const createProject = async (name: string): Promise<string | null> => {
+    if (!name.trim() || !user) return null
 
     const { data, error } = await supabase
       .from('projects')
@@ -76,11 +76,12 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
 
     if (!error && data) {
       setProjects([...projects, data])
-      setSelectedProject(data.id)
+      return data.id
     }
+    return null
   }
 
-  const createTask = async (title: string) => {
+  const createTask = async (title: string, projectIdParam?: string | null) => {
     if (!title.trim() || !user) return
 
     const maxOrder = Math.max(...tasks.map(t => t.order), 0)
@@ -91,13 +92,18 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
 
     if (selectedView === 'upcoming') {
       // Tasks created in Upcoming view get tomorrow's date by default
+      // and can optionally have a project
       const tomorrow = new Date()
       tomorrow.setDate(tomorrow.getDate() + 1)
       tomorrow.setHours(23, 59, 59, 999)
       dueDate = tomorrow.toISOString()
+      projectId = projectIdParam || null
     } else if (selectedView === 'projects' && selectedProject) {
       // Tasks created in Projects view belong to that project
       projectId = selectedProject
+    } else {
+      // For other views, use the passed project ID if any
+      projectId = projectIdParam || null
     }
 
     const { data, error } = await supabase
@@ -279,9 +285,12 @@ export default function TaskManager({ onNavigate, onSignOut }: TaskManagerProps)
                   <TaskList
                     title={getViewTitle()}
                     tasks={filteredTasks}
+                    projects={projects}
+                    currentView={selectedView || undefined}
                     onToggleTask={toggleTask}
                     onSelectTask={setSelectedTask}
                     onCreateTask={createTask}
+                    onCreateProject={createProject}
                     onDeleteTask={deleteTask}
                     selectedTask={selectedTask}
                   />
