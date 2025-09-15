@@ -34,25 +34,26 @@
 }
 
 .shareBtn {
-  padding: 7px 14px;
-  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 9px;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: var(--transition-smooth);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .shareBtn:hover {
   background: rgba(255, 255, 255, 1);
-  color: rgba(0, 0, 0, 0.85);
+  color: rgba(0, 0, 0, 0.9);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.12);
 }
 
 .moreBtn {
@@ -212,22 +213,23 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  color: rgba(0, 0, 0, 0.7);
+  padding: 7px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 9px;
+  color: rgba(0, 0, 0, 0.75);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 }
 
 .projectSelectorBtn:hover {
   background: rgba(255, 255, 255, 1);
-  border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
 
 /* Project Dropdown */
@@ -263,20 +265,22 @@
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 10px 12px;
+  padding: 10px 14px;
   background: transparent;
   border: none;
   border-radius: 8px;
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.75);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: left;
 }
 
 .projectOption:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.9);
+  transform: translateX(2px);
 }
 
 .createProjectBtn {
@@ -388,25 +392,26 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 16px;
-  border-radius: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  margin-bottom: 2px;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .taskItem:hover {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.75);
   border-color: rgba(0, 0, 0, 0.08);
+  transform: translateX(2px);
 }
 
 .taskItem.selected {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 .taskItem:hover .deleteBtn {
@@ -455,15 +460,17 @@
 
 .taskTitle {
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.85);
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 450;
+  letter-spacing: -0.01em;
 }
 
 .taskTitle.completed {
   text-decoration: line-through;
-  color: rgba(0, 0, 0, 0.3);
-  opacity: 0.7;
+  color: rgba(0, 0, 0, 0.35);
+  opacity: 0.8;
+  font-weight: 400;
 }
 
 .taskMeta {
@@ -476,14 +483,15 @@
 .dueDate {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.4);
-  font-weight: 400;
+  color: rgba(0, 0, 0, 0.55);
+  font-weight: 500;
 }
 
 .dueDate.overdue {
-  color: #FF4444;
+  color: #E53935;
+  font-weight: 600;
 }
 
 .deleteBtn {
